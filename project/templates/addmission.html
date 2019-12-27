@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <style>
+
+        .formTable {  border-color: black;}.formTable td {  padding: 10px;}.formTable 
+        .col1 {  text-align: center;}.formTable 
+        .col2 {  width: 30%;}
+        .col2 * { width: 30%;}
+
+        #leftContainer {
+            float:left
+
+        }
+
+        #rightContainer {
+            float:right
+        }
+
+        .header {
+            color: #36A0FF;
+            font-size: 27px;
+            padding: 10px;
+        }
+    
+        .bigicon {
+            font-size: 30px;
+            color: #36A0FF;
+        }
+        .resizedTextbox {width: 200px; height: 35px}
+
+        form {
+            width: 100%;
+            
+        }
+
+        body {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well well-sm">
+                    <form action="/project/addmission/" method="post">{% csrf_token %}
+                        <fieldset>
+                            <legend class="text-xs-center header">Admission</legend>
+                            <div class="form-group">
+                              <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                              <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
+                              <label style='margin-right: 22.25em' class="form-check-label">EnquiryAlias</label>
+                              <label style='margin-right: 2.25em' class="form-check-label">AdmissionID</label>
+                          </div>
+                          <br>
+
+                            <div class="form-group">
+                                <input id="fname" name="fname" type="text" placeholder="First Name" class="form-control col-md-08">
+                            </div>
+
+                            <div class="form-group">
+                                    <input id="lname" name="lname" type="text" placeholder="Last Name" class="form-control col-md-08">
+                            </div>
+        
+                            <div class="form-group">
+                                    <input id="email" name="email" type="text" placeholder="Email Address" class="form-control col-md-12">
+                            </div>
+    
+                            <div class="form-group">
+                                    <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control col-md-12">
+                            </div>
+    
+                            <div class="form-group">
+                                    <textarea class="form-control col-md-12" id="Address" name="Address" placeholder="Address" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <span style='margin-right: 6.25em' class = "label label-default">Admission Taken For: </span>
+                                    <input type="checkbox" class="form-check-input" name="linux" id="linux" checked>
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="linux">Linux</label>
+                                    <input type="checkbox" class="form-check-input" name="aws" id="aws">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
+                                    <input type="checkbox" class="form-check-input" name="python" id="python">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="python">Python</label>
+                                    <input type="checkbox" class="form-check-input" name="devops" id="devops">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="devops">DevOps</label>
+                                    <input type="checkbox" class="form-check-input" name="fullpython" id="fullpython">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
+                                    <input type="checkbox" class="form-check-input" name="hadoop" id="hadoop">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
+                            </div>
+
+                            <div class="form-group">
+                                <span style='margin-right: 14.00em' class = "label label-default">Fees: </span>
+                                    <input type="text" class="form-check-input" id="tot_fees" name="tot_fees" placeholder="Total Fess">
+                            </div>
+
+                            <div class="form-group">
+                              <br>  
+                              <span style='margin-right: 9.00em' class = "label label-default">Fees Structure: </span>
+                                    <input type="radio" class="form-check-input" id="one_install" name="one_install" onclick="ShowHideDiv()">
+                                    <label style='margin-right: 5.25em' class="form-check-label" for="one_install">One Installment</label>
+                                    <input type="radio" class="form-check-input" id="two_install" name="two_install" onclick="ShowHideDiv()">
+                                    <label style='margin-right: 5.25em' class="form-check-label" for="two_install">Two Installment</label>
+                                    <input type="radio" class="form-check-input" id="three_install" name="three_install" onclick="ShowHideDiv()">
+                                    <label style='margin-right: 5.25em' class="form-check-label" for="three_install">Three Installment</label>
+                            </div>
+
+                          
+                            <table class="table formTable" style="display: none;" id="one">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" class="col2">#</th>
+                                    <th scope="col" class="col2">Date</th>
+                                    <th scope="col" class="col2">Amount</th>
+                                    <th scope="col" class="col2">Paid/NotPaid</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td class="col2" scope="col"><input id="one_install_date" name="one_install_date" type="date" class="resizedTextbox"></td>
+                                    <td class="col2"><input type="text" name="one_install_fees" placeholder="Enter fees" class="resizedTextbox"></td>
+                                    <td class="col2">
+                                        <select  class="resizedTextbox" name = "status" id = "status">
+                                                <option value="" disabled="disabled" selected="selected">Status</option>
+                                                <option value="1">Paid</option>
+                                                <option value="2">Not Paid</option>
+                                                <option value="3">Discontinue</option>
+                                        </select>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table class="table formTable" style="display: none;" id="two">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col" class="col2">#</th>
+                                      <th scope="col" class="col2">Date</th>
+                                      <th scope="col" class="col2">Amount</th>
+                                      <th scope="col" class="col2">Paid/NotPaid</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td class="col2" scope="col"><input id="two_install_date1" name="two_install_date1" type="date" class="resizedTextbox"></td>
+                                      <td class="col2"><input type="text" name="two_install_fees1" placeholder="Enter fees" class="resizedTextbox"></td>
+                                      <td class="col2">
+                                          <select  class="resizedTextbox" name = "status1" id = "status1">
+                                                  <option value="" disabled="disabled" selected="selected">Status</option>
+                                                  <option value="1">Paid</option>
+                                                  <option value="2">Not Paid</option>
+                                                  <option value="3">Discontinue</option>
+                                          </select>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td class="col2" scope="col"><input id="two_install_date2" name="two_install_date2" type="date" class="resizedTextbox"></td>
+                                        <td class="col2"><input type="text" name="two_install_fees2" placeholder="Enter fees" class="resizedTextbox"></td>
+                                        <td class="col2">
+                                            <select  class="resizedTextbox" name = "status2" id = "status2">
+                                                    <option value="" disabled="disabled" selected="selected">Status</option>
+                                                    <option value="1">Paid</option>
+                                                    <option value="2">Not Paid</option>
+                                                    <option value="3">Discontinue</option>
+                                            </select>
+                                        </td>
+                                      </tr>
+                                  </tbody>
+                                </table>
+                                <table class="table formTable" style="display: none;" id="three">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="col2">#</th>
+                                        <th scope="col" class="col2">Date</th>
+                                        <th scope="col" class="col2">Amount</th>
+                                        <th scope="col" class="col2">Paid/NotPaid</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td class="col2" scope="col"><input id="three_install_date1" name="three_install_date1" type="date" class="resizedTextbox"></td>
+                                        <td class="col2"><input type="text" name="three_install_fees1" placeholder="Enter fees" class="resizedTextbox"></td>
+                                        <td class="col2">
+                                            <select  class="resizedTextbox" name = "status1" id = "status1">
+                                                    <option value="" disabled="disabled" selected="selected">Status</option>
+                                                    <option value="1">Paid</option>
+                                                    <option value="2">Not Paid</option>
+                                                    <option value="3">Discontinue</option>
+                                            </select>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <th scope="row">2</th>
+                                          <td class="col2" scope="col"><input id="three_install_date2" name="three_install_date2" type="date" class="resizedTextbox"></td>
+                                          <td class="col2"><input type="text" name="three_install_fees2" placeholder="Enter fees" class="resizedTextbox"></td>
+                                          <td class="col2">
+                                              <select  class="resizedTextbox" name = "status2" id = "status2">
+                                                      <option value="" disabled="disabled" selected="selected">Status</option>
+                                                      <option value="1">Paid</option>
+                                                      <option value="2">Not Paid</option>
+                                                      <option value="3">Discontinue</option>
+                                              </select>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td class="col2" scope="col"><input id="three_install_date3" name="three_install_date3" type="date" class="resizedTextbox"></td>
+                                            <td class="col2"><input type="text" name="three_install_fees3" placeholder="Enter fees" class="resizedTextbox"></td>
+                                            <td class="col2">
+                                                <select  class="resizedTextbox"  name = "status2" id = "status2">
+                                                        <option value="" disabled="disabled" selected="selected">Status</option>
+                                                        <option value="1">Paid</option>
+                                                        <option value="2">Not Paid</option>
+                                                        <option value="3">Discontinue</option>
+                                                </select>
+                                            </td>
+                                          </tr>
+                                    </tbody>
+                                  </table>
+    
+                              <div class="form-group">
+                                      <textarea class="form-control col-md-12" id="comments" name="comments" placeholder="Comments" rows="3"></textarea>
+                              </div>
+  
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        function display() {
+            document.getElementById("displaycontent").innerHTML = "<iframe src=\"enquiry1.html\" frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe>";
+        }
+        
+       function ShowHideDiv() {
+        var oneinstall = document.getElementById("one_install");
+        var twoinstall = document.getElementById("two_install");
+        var threeinstall = document.getElementById("three_install");
+
+        var showone = document.getElementById("one");
+        var showtwo = document.getElementById("two");
+        var showthree = document.getElementById("three");
+
+        showone.style.display = oneinstall.checked ? "block" : "none";
+        showtwo.style.display = twoinstall.checked ? "block" : "none";
+        showthree.style.display = threeinstall.checked ? "block" : "none";
+    
+    }
+   
+ 
+    </script>
+    
+</body>
+
+</html>
