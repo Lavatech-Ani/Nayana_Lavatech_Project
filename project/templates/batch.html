@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <style>
+
+        #leftContainer {
+            float:left
+
+        }
+
+        #rightContainer {
+            float:right
+        }
+
+        .header {
+            color: #36A0FF;
+            font-size: 27px;
+            padding: 10px;
+        }
+    
+        .bigicon {
+            font-size: 30px;
+            color: #36A0FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well well-sm">
+                    <form action="/project/batch/" method="post">{% csrf_token %}
+                        <fieldset>
+                            <legend class="text-xs-center header">Batch Creation</legend>
+                            <div class="form-group">
+                              <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                              <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
+                              <label style='margin-right: 25.25em' class="form-check-label">BatchAlias</label>
+                              <label style='margin-right: 2.25em' class="form-check-label">BatchID</label>
+                          </div>
+                          <br>
+
+                          <div class="form-group">  
+                            <span style='margin-right: 5.00em' class = "label label-default">Trainer Name: </span>
+                                  <input type="radio" class="form-check-input" id="trainer_aniket" name="trainer_aniket">
+                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer_aniket">Aniket</label>
+                                  <input type="radio" class="form-check-input" id="trainer_yogita" name="trainer_yogita">
+                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer_yogita">Yogita</label>
+                          </div>
+
+                          <div class="form-group">
+                            <span style='margin-right: 8.25em' class = "label label-default">Course: </span>
+                                <input type="checkbox" class="form-check-input" id="linux" name ="linux" checked>
+                                <label style='margin-right: 3.25em' class="form-check-label" for="linux">Linux</label>
+                                <input type="checkbox" class="form-check-input" id="aws" name ="aws">
+                                <label style='margin-right: 3.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
+                                <input type="checkbox" class="form-check-input" id="python" name ="python">
+                                <label style='margin-right: 3.25em' class="form-check-label" for="python">Python</label>
+                                <input type="checkbox" class="form-check-input" id="devops" name ="devops">
+                                <label style='margin-right: 3.25em' class="form-check-label" for="devops">DevOps</label>
+                                <input type="checkbox" class="form-check-input" id="fullpython" name ="fullpython">
+                                <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
+                                <input type="checkbox" class="form-check-input" id="hadoop" name ="hadoop">
+                                <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
+                        </div>
+
+                        <div class="form-group">  
+                          <span style='margin-right: 5.00em' class = "label label-default">Batch Time: </span>
+                          <input type="time" name="btime">
+                        </div>
+
+                        <div class="form-group">
+                              <span style='margin-right: 9.00em' class = "label label-default">Days: </span>
+                                    <input type="radio" class="form-check-input" id="weekdays" name="weekdays">
+                                    <label style='margin-right: 5.25em' class="form-check-label" for="weekdays">WeekDays</label>
+                                    <input type="radio" class="form-check-input" id="weekends" name="weekends">
+                                    <label style='margin-right: 5.25em' class="form-check-label" for="weekends">WeekEnds</label>
+                                    <input type="radio" class="form-check-input" id="other" name="days">
+                                    <input type="text" placeholder="SpecificDays" style='margin-right: 5.25em' class="form-check-label" for="other" name="other">
+                        </div>
+
+                        <div class="form-group">  
+                            <span style='margin-right: 5.00em' class = "label label-default">Student Name: </span>
+                            <button type="button" name="add" style='margin-right: 5.25em' class="form-check-label">Add</button>
+                            <input style='margin-right: 22.5em' type="text" name="sname" class="form-check-input" placeholder="--Select--">
+                          </div>
+
+                        <br><br>
+
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">No.</th>
+                              <th scope="col">Student Name</th>
+                              <th scope="col">Student Alias</th>
+                              <th scope="col">Contact Details</th>
+                              <th scope="col">Email-ID</th>
+                              <th scope="col">Fees Due</th>
+                              <th scope="col">Fees Due Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>  
+  
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        function display() {
+            document.getElementById("displaycontent").innerHTML = "<iframe src=\"enquiry1.html\" frameborder=\"0\" width=\"100%\" height=\"100%\"></iframe>";
+        }
+        
+    </script>
+    
+</body>
+
+</html>

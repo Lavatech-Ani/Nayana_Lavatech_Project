@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Enq, Addmission
+from .models import Enq, Addmission, Batch
 from django.http import HttpResponse
 from django.utils.dateformat import DateFormat
 from django.utils.formats import get_format
@@ -241,4 +241,48 @@ def addmission(request):
         thank = True 
     return render(request, 'addmission.html', {'thank': thank})
 
-   
+def batch(request):
+    thank = False
+    if request.method=="POST":
+        edate = request.POST.get('edate','') 
+        trainer_aniket = request.POST.get('trainer_aniket','off')
+        trainer_yogita = request.POST.get('trainer_yogita','off')
+        linux = request.POST.get('linux','off')
+        aws = request.POST.get('aws','off')
+        python = request.POST.get('python','off')
+        devops = request.POST.get('devops','off')
+        fullpython = request.POST.get('fullpython','off')
+        hadoop = request.POST.get('hadoop','off')
+        btime = request.POST.get('btime','')
+        weekdays = request.POST.get('weekdays','off')
+        weekends = request.POST.get('weekends','off')
+        days = request.POST.get('days','off') 
+        if trainer_aniket == "on":
+            trainer = "trainer_aniket"
+        if trainer_yogita == "on":
+            trainer = "trainer_yogita"
+        courses=[]
+        if linux == "on":
+            courses.append("Linux")
+        if aws == "on":
+            courses.append("AWS")
+        if python == "on":
+            courses.append("Python")
+        if devops == "on":
+            courses.append("Devops")  
+        if fullpython == "on":
+            courses.append("FullStack") 
+        if hadoop == "on":
+            courses.append("Hadoop") 
+        if weekdays == "on":
+            batch_days = "weekdays"
+        if weekends == "on":
+            batch_days = "weekends"
+        if days == "on":
+            batch_days = "Special_days"     
+
+        batch = Batch(edate = edate, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
+
+        batch.save()
+        thank = True
+    return render(request, 'batch.html', {'thank': thank})
