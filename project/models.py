@@ -48,19 +48,18 @@ class Addmission(models.Model):
     status = models.CharField(max_length=50)
     two_install_date1 = models.CharField(max_length=50)
     two_install_fees1 = models.CharField(max_length=50)
-    status1 = models.CharField(max_length=50)
     two_install_date2 = models.CharField(max_length=50)
     two_install_fees2 = models.CharField(max_length=50)
-    status2 = models.CharField(max_length=50)
     three_install_date1 = models.CharField(max_length=50)
     three_install_fees1 = models.CharField(max_length=50)
-    status1 = models.CharField(max_length=50)
     three_install_date2 = models.CharField(max_length=50)
     three_install_fees2 = models.CharField(max_length=50)
-    status2 = models.CharField(max_length=50)
     three_install_date3 = models.CharField(max_length=50)
     three_install_fees3 = models.CharField(max_length=50)
+    status1 = models.CharField(max_length=50)
+    status2 = models.CharField(max_length=50)
     status3 = models.CharField(max_length=50)
+    comments = models.CharField(max_length=5000)
 
 
     def __str__(self):

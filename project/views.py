@@ -233,10 +233,10 @@ def addmission(request):
 
         addmission = Addmission(edate = edate, fname = fname, lname = lname, email = email, phone = phone, Address = Address, 
         courses=courses, tot_fees = tot_fees, one_install_date = one_install_date, one_install_fees = one_install_fees, status = status, 
-        two_install_date1 = two_install_date1, two_install_fees1 = two_install_fees1, status1 = status1, two_install_date2 = two_install_date2, 
-        two_install_fees2 = two_install_fees2, status2 = status2, three_install_date1 = three_install_date1, three_install_fees1 = three_install_fees1, 
+        two_install_date1 = two_install_date1, two_install_fees1 = two_install_fees1, two_install_date2 = two_install_date2, 
+        two_install_fees2 = two_install_fees2, three_install_date1 = three_install_date1, three_install_fees1 = three_install_fees1, 
         three_install_date2 = three_install_date2, three_install_fees2 = three_install_fees2, three_install_date3 = three_install_date3, 
-        three_install_fees3 = three_install_fees3, status3 = status3, comments = comments)
+        three_install_fees3 = three_install_fees3, status1 = status1, status2 = status2, status3 = status3, comments = comments)
         addmission.save() 
         thank = True 
     return render(request, 'addmission.html', {'thank': thank})
