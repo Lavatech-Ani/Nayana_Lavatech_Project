@@ -8,7 +8,8 @@ from datetime import datetime
 
 # Create your views here.
 
-
+def index(request):
+    return render(request,'index.html')
 def enq(request):
     thank = False
     if request.method=="POST":
@@ -256,7 +257,11 @@ def batch(request):
         btime = request.POST.get('btime','')
         weekdays = request.POST.get('weekdays','off')
         weekends = request.POST.get('weekends','off')
-        days = request.POST.get('days','off') 
+        days = request.POST.get('days','off')
+        specialday = request.POST.get('specialday','') 
+        sname = request.POST.get('sname','')
+        B_student = Addmission.objects.get(fname = sname)
+        print(B_student)
         if trainer_aniket == "on":
             trainer = "trainer_aniket"
         if trainer_yogita == "on":
@@ -279,10 +284,12 @@ def batch(request):
         if weekends == "on":
             batch_days = "weekends"
         if days == "on":
-            batch_days = "Special_days"     
+            batch_days = specialday     
 
         batch = Batch(edate = edate, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
 
         batch.save()
         thank = True
+        return render(request, 'batch.html', {'thank':thank, 'B_student': B_student})
+
     return render(request, 'batch.html', {'thank': thank})

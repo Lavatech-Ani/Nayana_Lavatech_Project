@@ -74,4 +74,4 @@ class Batch(models.Model):
     
 
     def __str__(self):
-        return self.edate
+        return self.trainer
