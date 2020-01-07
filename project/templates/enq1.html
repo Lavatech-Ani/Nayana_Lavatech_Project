@@ -54,15 +54,13 @@
                             <legend class="text-xs-center header">Enquiry</legend>
                             <div class="form-group">
                                 <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
-                                <input style='margin-right: 15.25em' id="edate" name="edate" type="date" class="form-check-label">
-                                <label style='margin-right: 15.25em' class="form-check-label">EnquiryAlias</label>
-                                <label style='margin-right: 15.25em' class="form-check-label">EnquiryID</label>
-                                <div id="alias" style='margin-left: 30.25em' name="alias"></div>
-                                
+                                <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
+                                <label style='margin-right: 25.25em' class="form-check-label">EnquiryAlias</label>
+                                <label style='margin-right: 2.25em' class="form-check-label">EnquiryID</label>
                             </div>
                             <br>
                             <div class="form-group">
-                                <input id="fname" name="fname" type="text" placeholder="First Name" class="form-control col-md-08 fname">
+                                <input id="fname" name="fname" type="text" placeholder="First Name" class="form-control col-md-08">
                             </div>
                             <div class="form-group">
                                     <input id="lname" name="lname" type="text" placeholder="Last Name" class="form-control col-md-08">
@@ -210,18 +208,7 @@
 {% endblock %}
 {% block js%}
 <script>
-
-console.log('working');
-console.log('clicked');
-
-const alias = document.getElementById("alias");
-const fname = document.getElementById("fname");
-lname.addEventListener("focus", function(){
-    alias.textContent = fname.value;
-    name = alias.textContent;
-    console.log(name);
-});
-
+  
 function ShowHideDiv() {
         var ref = document.getElementById("reference");
         var stud = document.getElementById("student");

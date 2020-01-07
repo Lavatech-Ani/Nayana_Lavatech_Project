@@ -6,7 +6,7 @@ from django.utils.formats import get_format
 from datetime import datetime
 
 
-# Create your views here.
+# Create your views here
 
 def index(request):
     return render(request,'index.html')
@@ -18,7 +18,8 @@ def enq(request):
         edate = datetime.now()
         edate = DateFormat(edate)
         edate.format(get_format('DATE_FORMAT'))
-        edate = edate.format('Y-m-d')       
+        edate = edate.format('Y-m-d')
+        enqid = request       
         fname = request.POST.get('fname', '')
         l1=[]
         l1.append(fname) 
