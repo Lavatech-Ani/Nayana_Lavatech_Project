@@ -216,11 +216,14 @@ console.log('working');
 console.log('clicked');
 const alias = document.getElementById("alias");
 const fname = document.getElementById("fname");
+
 const lname = document.getElementById("lname");
 const enqid = document.getElementById("enqid").value;
 console.log(enqid);
 email.addEventListener("focus", function(){
-    alias.textContent = fname.value + lname.value.slice(0, 2) + enqid;
+    const fnameCap = fname.value.charAt(0).toUpperCase() + fname.value.slice(1)
+    const lnameCap = lname.value.charAt(0).toUpperCase() + lname.value.slice(1)
+    alias.textContent = "E-"+" "+fnameCap+"_"+lnameCap.slice(0, 2) + enqid;
     name = alias.textContent;
     console.log(name);
 });

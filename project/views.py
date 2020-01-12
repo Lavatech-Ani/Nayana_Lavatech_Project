@@ -123,6 +123,7 @@ def enq(request):
         
         eid = int(enqid)
         print(eid)
+        print(type(eid))
         eid += 1 
         print(eid)
         enqalias = fname+lname[0:2]+str(eid)
