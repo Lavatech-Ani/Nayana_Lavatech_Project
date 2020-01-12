@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.utils.dateformat import DateFormat
 from django.utils.formats import get_format
 from datetime import datetime
+from django.db.models import F
 
 
 # Create your views here
@@ -11,15 +12,15 @@ from datetime import datetime
 def index(request):
     return render(request,'index.html')
 def enq(request):
+    l1 =[]
+    posts = Enq.objects.values('enqid')[0]
+    print(posts)
+    print(type(posts))
+    
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','')
-        print(edate)
-        edate = datetime.now()
-        edate = DateFormat(edate)
-        edate.format(get_format('DATE_FORMAT'))
-        edate = edate.format('Y-m-d')
-        enqid = request       
+        enqid = request.POST.get('enqid', '')  
         fname = request.POST.get('fname', '')
         l1=[]
         l1.append(fname) 
@@ -116,15 +117,22 @@ def enq(request):
             weekend = weekend
         l1=[]
         l1.append(fname)    
-        for count,ele in enumerate(l1,start=100): 
-            print (count,ele)     
+        posts1 = Enq.objects.values('enqid')
+        ans = posts1.update(enqid=F('enqid') + 1)
+        print(ans)
         
-        enq = Enq(edate=edate, enqid = count, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
+        eid = int(enqid)
+        print(eid)
+        eid += 1 
+        print(eid)
+        enqalias = fname+lname[0:2]+str(eid)
+        print(enqalias)        
+        enq = Enq(edate=edate,enqalias = enqalias ,enqid = eid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
         collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
         weekday_date = wddate, weekdays = weekdays, weekend_date = wedate, weekend = weekend, comments = comments)
         enq.save() 
         thank = True 
-    return render(request, 'enq.html', {'thank': thank})
+    return render(request, 'enq.html', {'posts': posts, 'thank': thank})
     
   
 def addmission(request):

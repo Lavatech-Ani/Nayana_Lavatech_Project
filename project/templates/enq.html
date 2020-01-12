@@ -56,9 +56,10 @@
                                 <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
                                 <input style='margin-right: 15.25em' id="edate" name="edate" type="date" class="form-check-label">
                                 <label style='margin-right: 15.25em' class="form-check-label">EnquiryAlias</label>
-                                <label style='margin-right: 15.25em' class="form-check-label">EnquiryID</label>
-                                <div id="alias" style='margin-left: 30.25em' name="alias"></div>
                                 
+                                EnquiryID :<input id="enqid" name="enqid" value="{{ posts.enqid }}">
+                                
+                                <div id="alias" style='margin-left: 30.25em' name="alias"></div>
                             </div>
                             <br>
                             <div class="form-group">
@@ -213,14 +214,17 @@
 
 console.log('working');
 console.log('clicked');
-
 const alias = document.getElementById("alias");
 const fname = document.getElementById("fname");
-lname.addEventListener("focus", function(){
-    alias.textContent = fname.value;
+const lname = document.getElementById("lname");
+const enqid = document.getElementById("enqid").value;
+console.log(enqid);
+email.addEventListener("focus", function(){
+    alias.textContent = fname.value + lname.value.slice(0, 2) + enqid;
     name = alias.textContent;
     console.log(name);
 });
+
 
 function ShowHideDiv() {
         var ref = document.getElementById("reference");
