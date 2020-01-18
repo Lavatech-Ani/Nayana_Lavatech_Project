@@ -49,46 +49,40 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="well well-sm">
-                <form action="/alias/" method="post">{% csrf_token %}
-                <select  class="resizedTextbox" name = "enqalias" id = "enqalias">
-                                <option value="" disabled="disabled" selected="selected">EnquiryAlias</option>
-                                {% for post in posts %} 
-                                  <option value="{{ post.enqalias }}">{{ post.enqalias }}</option>
-                                {% endfor %} 
-                </select>
-                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-sm">Next</button>
-                </div>
-                </form>
                     <form action="/addmission/" method="post">{% csrf_token %}
                         <fieldset>
                             <legend class="text-xs-center header">Admission</legend>
                             <div class="form-group">
                               <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
                               <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
-                              <label style='margin-right: 2.25em' class="form-check-label">AdmissionID</label>{{context.enqid}}
-                              <label style='margin-left: 10.25em' class="form-check-label">EnquiryAlias</label>: {{context}}
+                              <label style='margin-right: 2.25em' class="form-check-label">AdmissionID</label>
+                              
+                              <select  class="resizedTextbox" name = "enqalias" id = "enqalias" onchange="getselectvalue();">
+                                <option value="" disabled="disabled" selected="selected">EnquiryAlias</option>
+                                {% for post in posts %} 
+                                  <option value="{{ post.enqalias }}">{{ post.enqalias }}</option>
+                                {% endfor %} 
+                              </select>
                           </div>
                           <br>
-                              
+                               
                             <div class="form-group">
-                                <input id="fname" name="fname" value="{{context.fname}}" type="text"  placeholder="First Name" class="form-control col-md-08">        
-                            </div>
-                              
+                                <input id="fname" name="fname" type="text"  placeholder="First Name" class="form-control col-md-08">    
+                            </div>  
                             <div class="form-group">
-                                    <input id="lname" name="lname" value="{{context.lname}}" type="text" placeholder="Last Name" class="form-control col-md-08">
+                                    <input id="lname" name="lname" type="text" placeholder="Last Name" class="form-control col-md-08">
                             </div>
         
                             <div class="form-group">
-                                    <input id="email" name="email" value="{{context.email}}" type="text" placeholder="Email Address" class="form-control col-md-12">
+                                    <input id="email" name="email" type="text" placeholder="Email Address" class="form-control col-md-12">
                             </div>
     
                             <div class="form-group">
-                                    <input id="phone" name="phone" value="{{context.phone}}" type="text" placeholder="Phone" class="form-control col-md-12">
+                                    <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control col-md-12">
                             </div>
                             
                             <div class="form-group">
-                                    <input class="form-control col-md-12" id="Address" name="Address" value="{{context.Address}}" placeholder="Address" rows="3">
+                                    <textarea class="form-control col-md-12" id="Address" name="Address" placeholder="Address" rows="3"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -268,7 +262,9 @@ function getselectvalue()
   console.log(alias.fname);
   
  
-}
+} 
+
+
 
 function ShowHideDiv() {
         var oneinstall = document.getElementById("one_install");

@@ -30,10 +30,8 @@ class Enq(models.Model):
 
 
     def __str__(self):
-        return self.fname      
+        return self.enqalias      
     
-    
-       
 
 class Addmission(models.Model):
     edate = models.CharField(max_length=100, default=None)

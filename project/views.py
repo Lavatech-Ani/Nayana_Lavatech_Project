@@ -5,7 +5,7 @@ from django.utils.dateformat import DateFormat
 from django.utils.formats import get_format
 from datetime import datetime
 from django.db.models import F
-
+import json
 
 # Create your views here
 
@@ -135,11 +135,29 @@ def enq(request):
         thank = True 
     return render(request, 'enq.html', {'posts': posts, 'thank': thank})
     
-  
+def alias(request):
+    if request.method=="POST": 
+        enqalias = request.POST.get('enqalias','')
+    posts = Enq.objects.all() 
+    print(posts)
+    for i in posts:
+        if enqalias == str(i):
+            context = Enq.objects.get(enqalias=i)
+            print(context.Address)
+    return render(request, 'addmission.html', {'posts': posts, 'context':context})
+
+
 def addmission(request):
+    posts = Enq.objects.all()
+    for i in posts:
+        print(i)
+    
     thank = False
     if request.method=="POST":
-        edate = request.POST.get('edate','')     
+        edate = request.POST.get('edate','') 
+        enqalias = request.POST.get('enqalias','')
+        print("############################")
+        print(enqalias) 
         fname = request.POST.get('fname', '')
         lname = request.POST.get('lname', '')
         email = request.POST.get('email', '')
@@ -250,7 +268,7 @@ def addmission(request):
         three_install_fees3 = three_install_fees3, status1 = status1, status2 = status2, status3 = status3, comments = comments)
         addmission.save() 
         thank = True 
-    return render(request, 'addmission.html', {'thank': thank})
+    return render(request, 'addmission.html', {'posts': posts, 'thank': thank})
 
 def batch(request):
     thank = False
