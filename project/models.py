@@ -35,6 +35,8 @@ class Enq(models.Model):
 
 class Addmission(models.Model):
     edate = models.CharField(max_length=100, default=None)
+    enqalias = models.CharField(max_length=50, default=None)
+    enqid = models.IntegerField(default=0)
     fname = models.CharField(max_length=50, default=None)
     lname = models.CharField(max_length=50, default=None)
     email = models.CharField(max_length=50, default=None)

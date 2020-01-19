@@ -11,16 +11,17 @@ import json
 
 def index(request):
     return render(request,'index.html')
+    
 def enq(request):
     l1 =[]
     posts = Enq.objects.values('enqid')[0]
-    print(posts)
-    print(type(posts))
-    
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','')
-        enqid = request.POST.get('enqid', '')  
+        enqid = request.POST.get('enqid', '')
+        print("#############") 
+        print(enqid)
+        print("#############")  
         fname = request.POST.get('fname', '')
         l1=[]
         l1.append(fname) 
@@ -116,22 +117,18 @@ def enq(request):
             wedate = wedate
             weekend = weekend
         l1=[]
-        l1.append(fname)    
-        posts1 = Enq.objects.values('enqid')
-        ans = posts1.update(enqid=F('enqid') + 1)
-        print(ans)
+        l1.append(fname)
+
         
-        eid = int(enqid)
-        print(eid)
-        print(type(eid))
-        eid += 1 
-        print(eid)
-        enqalias = fname+lname[0:2]+str(eid)
-        print(enqalias)        
-        enq = Enq(edate=edate,enqalias = enqalias ,enqid = eid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
+        abc = str(posts.items())
+        value = abc[22]+abc[23]+abc[24]
+        ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1)
+        print(ans)    
+        enqalias = fname+lname[0:2]+str(enqid)     
+        enq = Enq(edate=edate, enqalias = enqalias, enqid = enqid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
         collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
         weekday_date = wddate, weekdays = weekdays, weekend_date = wedate, weekend = weekend, comments = comments)
-        enq.save() 
+        enq.save()        
         thank = True 
     return render(request, 'enq.html', {'posts': posts, 'thank': thank})
     
@@ -139,25 +136,20 @@ def alias(request):
     if request.method=="POST": 
         enqalias = request.POST.get('enqalias','')
     posts = Enq.objects.all() 
-    print(posts)
     for i in posts:
         if enqalias == str(i):
             context = Enq.objects.get(enqalias=i)
-            print(context.Address)
     return render(request, 'addmission.html', {'posts': posts, 'context':context})
 
 
 def addmission(request):
     posts = Enq.objects.all()
-    for i in posts:
-        print(i)
     
     thank = False
     if request.method=="POST":
-        edate = request.POST.get('edate','') 
+        edate = request.POST.get('edate','')
+        enqid = request.POST.get('enqid','')
         enqalias = request.POST.get('enqalias','')
-        print("############################")
-        print(enqalias) 
         fname = request.POST.get('fname', '')
         lname = request.POST.get('lname', '')
         email = request.POST.get('email', '')
@@ -260,7 +252,7 @@ def addmission(request):
         if status3 == "3":
             status3 = "Discontinue"    
 
-        addmission = Addmission(edate = edate, fname = fname, lname = lname, email = email, phone = phone, Address = Address, 
+        addmission = Addmission(edate = edate, enqalias = enqalias,enqid = enqid, fname = fname, lname = lname, email = email, phone = phone, Address = Address, 
         courses=courses, tot_fees = tot_fees, one_install_date = one_install_date, one_install_fees = one_install_fees, status = status, 
         two_install_date1 = two_install_date1, two_install_fees1 = two_install_fees1, two_install_date2 = two_install_date2, 
         two_install_fees2 = two_install_fees2, three_install_date1 = three_install_date1, three_install_fees1 = three_install_fees1, 
