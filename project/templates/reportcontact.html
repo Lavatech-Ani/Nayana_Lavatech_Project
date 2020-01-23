@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% block title %} Contact Report {% endblock %}
+{% block css %} {% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form action="/reportcontact/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Contact Report</legend>
+
+                          <div class="form-group">  
+                            <span style='margin-right: 5.00em' class = "label label-default">Select Search Option: </span>
+                                  <input type="radio" class="form-check-input" id="option" name="option">
+                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student First Name">
+                                  <input type="radio" class="form-check-input" id="option" name="option">
+                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student Last Name">
+                                  <input type="radio" class="form-check-input" id="option" name="option">
+                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Enquiry Alias">
+                          </div>
+
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                        </div>
+
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Full Name</th>
+                              <th scope="col">Enquiry Alias</th>
+                              <th scope="col">Admission ID</th>
+                              <th scope="col">Phone No</th>
+                              <th scope="col">Email-ID</th>
+                              <th scope="col">Course Name</th>
+                              <th scope="col">Batch Time</th>
+                              <th scope="col">Batch Days</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row"></th>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>      
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
+    
+{% endblock %}
+{% block js%}
+<script>
+{% if thank %}
+alert('Thanks for Registration. We will get back to you soon!');
+document.location = "/reportcontact/";
+{% endif %}
+
+</script>
+ 
+{% endblock %} 

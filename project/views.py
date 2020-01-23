@@ -7,6 +7,7 @@ from datetime import datetime
 from django.db.models import F
 import json
 
+
 # Create your views here
 
 def index(request):
@@ -118,13 +119,11 @@ def enq(request):
             weekend = weekend
         l1=[]
         l1.append(fname)
-
-        
         abc = str(posts.items())
         value = abc[22]+abc[23]+abc[24]
         ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1)
         print(ans)    
-        enqalias = fname+lname[0:2]+str(enqid)     
+        enqalias = "E-"+" "+fname.capitalize()+"_"+lname[0:2].capitalize()+str(enqid)     
         enq = Enq(edate=edate, enqalias = enqalias, enqid = enqid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
         collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
         weekday_date = wddate, weekdays = weekdays, weekend_date = wedate, weekend = weekend, comments = comments)
@@ -132,7 +131,7 @@ def enq(request):
         thank = True 
     return render(request, 'enq.html', {'posts': posts, 'thank': thank})
     
-def alias(request):
+def createalias(request):
     if request.method=="POST": 
         enqalias = request.POST.get('enqalias','')
     posts = Enq.objects.all() 
@@ -263,9 +262,13 @@ def addmission(request):
     return render(request, 'addmission.html', {'posts': posts, 'thank': thank})
 
 def batch(request):
+    posts = Addmission.objects.all()
+    print(posts)
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','') 
+        batchid = request.POST.get('batchid','')
+        batchalias = request.POST.get('batchalias','')
         trainer_aniket = request.POST.get('trainer_aniket','off')
         trainer_yogita = request.POST.get('trainer_yogita','off')
         linux = request.POST.get('linux','off')
@@ -280,8 +283,7 @@ def batch(request):
         days = request.POST.get('days','off')
         specialday = request.POST.get('specialday','') 
         sname = request.POST.get('sname','')
-        B_student = Addmission.objects.get(fname = sname)
-        print(B_student)
+        print(sname)
         if trainer_aniket == "on":
             trainer = "trainer_aniket"
         if trainer_yogita == "on":
@@ -306,10 +308,61 @@ def batch(request):
         if days == "on":
             batch_days = specialday     
 
-        batch = Batch(edate = edate, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
-
+        batch = Batch(edate = edate,batchid = batchid, batchalias = batchalias, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
         batch.save()
         thank = True
-        return render(request, 'batch.html', {'thank':thank, 'B_student': B_student})
+    return render(request, 'batch.html', {'posts': posts, 'thank': thank})
 
-    return render(request, 'batch.html', {'thank': thank})
+def searchenq(request):
+    return render(request,'searchenquiry.html')
+
+def searchaddmission(request):
+    return render(request,'searchaddmission.html')
+
+def searchbatch(request):
+    return render(request,'searchbatch.html')
+
+
+def modifyenq(request):
+    return render(request,'modifyenquiry.html')
+
+
+def modifyaddmission(request):
+    return render(request,'modifyaddmission.html')
+
+
+def modifybatch(request): 
+    return render(request,'modifybatch.html')
+
+
+def reportenq(request):
+    return render(request,'reportenquiry.html')
+ 
+
+
+def reportbatch(request):
+    return render(request,'reportbatch.html')
+
+
+def reportcontact(request):
+    return render(request,'reportcontact.html')
+
+
+def feesnew(request):
+    return render(request,'feesnew.html')
+
+
+def feesreport(request): 
+    return render(request,'feesreport.html')
+
+def feessearch(request): 
+    return render(request,'feessearch.html')    
+
+
+def internnew(request):
+    return render(request,'internnew.html')
+
+
+def internupdate(request):
+    return render(request,'internupdate.html')
+       

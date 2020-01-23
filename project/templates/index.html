@@ -56,6 +56,51 @@ body {
   .sidenav {padding-top: 100px;}
   .sidenav a {font-size: 18px;}
 }
+
+
+
+
+
+.formTable {  border-color: black;}.formTable td {  padding: 10px;}.formTable 
+        .col1 {  text-align: center;}.formTable 
+        .col2 {  width: 30%;}
+        .col2 * { width: 30%;}
+
+        #leftContainer {
+            float:left
+
+        }
+
+        #rightContainer {
+            float:right
+        }
+
+        .header {
+            color: #36A0FF;
+            font-size: 27px;
+            padding: 10px;
+        }
+    
+        .bigicon {
+            font-size: 30px;
+            color: #36A0FF;
+        }
+        .resizedTextbox {width: 200px; height: 35px}
+
+        form {
+            width: 100%;
+            
+        }
+
+        body {
+            text-align: left;
+        }
+        .main {
+            margin-left: 230px; /* Same as the width of the sidenav */
+            font-size: 15px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+            color: black;
+        }
 {% block css %} {% endblock %}
 </style>
 </head>
@@ -93,111 +138,107 @@ body {
                     </div>
                 </a>
                 <ul class="collapse list-unstyled" id="searchSubmenu">
-                            <li>
-                                <button type="button" onclick="searchenquiry()" class="btn btn-info btn-sm btn-block text-left" >Enquiry</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="searchadmission()" class="btn btn-info btn-sm btn-block text-left">Admission</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="searchbatch()" class="btn btn-info btn-sm btn-block text-left">Batch</button>
-                            </li>
-                    </ul>
-                </li>
-                <li>
+                    <li>
+                        <a href="/searchenq/">Enquiry</a>
+                    </li>
+                    <li>
+                        <a href="/searchaddmission/">Admission</a>
+                    </li>
+                    <li>
+                        <a href="/searchbatch/">Batch</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="#modifySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <div onclick="blank()">
+                    <div onclick="blank()">
                         <i class="fas fa-exclamation-circle "></i>
                         Modify
-                        </div>
-                    </a>
-                    <ul class="collapse list-unstyled" id="modifySubmenu">
-                            <li>
-                                <button type="button" onclick="modifyenquiry()" class="btn btn-info btn-sm btn-block text-left">Enquiry</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="modifyadmission()" class="btn btn-info btn-sm btn-block text-left">Admission</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="modifybatch()" class="btn btn-info btn-sm btn-block text-left">Batch</button>
-                            </li>
-                    </ul>
-                </li>
-                <li>
+                    </div>
+                </a>
+                <ul class="collapse list-unstyled" id="modifySubmenu">
+                    <li>
+                        <a href="/modifyenq/">Enquiry</a>
+                    </li>
+                    <li>
+                        <a href="/modifyaddmission/">Admission</a>
+                    </li>
+                    <li>
+                        <a href="/modifybatch/">Batch</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <div onclick="blank()">
+                    <div onclick="blank()">
                         <i class="fas fa-flag-checkered"></i>
                         Report
-                        </div>
+                    </div>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="reportSubmenu">
-                            <li>
-                                <button type="button" onclick="reportenquiry()" class="btn btn-info btn-sm btn-block text-left">Enquiry</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="reportadmission()" class="btn btn-info btn-sm btn-block text-left">Admission</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="reportbatch()" class="btn btn-info btn-sm btn-block text-left">Batch</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="reportcontact()" class="btn btn-info btn-sm btn-block text-left">Contacts</button>
-                            </li>
-                    </ul>
-                </li>
-                <li>
+                </a>
+                <ul class="collapse list-unstyled" id="reportSubmenu">
+                    <li>
+                        <a href="/reportenq/">Enquiry</a>
+                    </li>
+                    <li>
+                        <a href="/reportbatch/">Batch</a>
+                    </li>
+                    <li>
+                        <a href="/reportcontact/">Contacts</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="#feesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <div onclick="blank()">
+                    <div onclick="blank()">
                         <i class="fas fa-check" aria-hidden="true"></i>
                         Fees
-                        </div>
-
-                    </a>
-                    <ul class="collapse list-unstyled" id="feesSubmenu"   class="dropdown-toggle">
-                            <li>
-                                <button type="button" onclick="feesnew()" class="btn btn-info btn-sm btn-block text-left" id="fnew">Add</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="feessearch()" class="btn btn-info btn-sm btn-block text-left">Search</button>UK/
-                        <a href="#internSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                                <div onclick="blank()">
-                                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                                InternShip
-                                </div>
-                            </a>
-                            <ul class="collapse list-unstyled" id="internSubmenu"   class="dropdown-toggle">
-                                    <li>
-                                        <button type="button" onclick="internnew()" class="btn btn-info btn-sm btn-block text-left">Enquiry</button>
-                                    </li>
-                                    <li>
-                                        <button type="button" onclick="internupdate()" class="btn btn-info btn-sm btn-block text-left">Update</label>
-                                    </li>        
-                                    <li>
-                                            <button type="button" onclick="reportadmission()" class="btn btn-info btn-sm btn-block text-left">Report</label>
-                                    </li>        
-                            </ul>
-                        </li>
-
-                <li>
-                    <a href="#pipeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    </div>
+                </a>
+                <ul class="collapse list-unstyled" id="feesSubmenu"   class="dropdown-toggle">
+                    <li>
+                        <a href="/feesnew/">Add</a>
+                    </li>
+                    <li>
+                        <a href="/feesreport/">Report</a>
+                    </li>
+                    <li>
+                        <a href="/feessearch/">Search</a>
+                    </li>    
+                </ul>        
+                <a href="#internSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div onclick="blank()">
-                    <i class="fas fa-users" aria-hidden="true"></i>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                        InternShip
+                    </div>
+                </a>
+                <ul class="collapse list-unstyled" id="internSubmenu"   class="dropdown-toggle">
+                    <li>
+                        <a href="/internnew/">Enquiry</a>
+                    </li>
+                    <li>
+                        <a href="/internupdate/">Update</a>
+                    </li>               
+                </ul>
+                <a href="#pipeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div onclick="blank()">
+                        <i class="fas fa-users" aria-hidden="true"></i>
                         Pipeline
                     </div>
-                    </a>
-                        <ul class="collapse list-unstyled" id="pipeSubmenu"   class="dropdown-toggle">
-                            <li>
-                                <button type="button" onclick="reportenquiry()" class="btn btn-info btn-sm btn-block text-left">Yogita</button>
-                            </li>
-                            <li>
-                                <button type="button" onclick="reportadmission()" class="btn btn-info btn-sm btn-block text-left">Aniket</label>
-                            </li>        
-                        </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
+                </a>
+                <ul class="collapse list-unstyled" id="pipeSubmenu"   class="dropdown-toggle">
+                    <li>
+                        <a href="/yogita/">Yogita</a>
+                    </li>
+                    <li>
+                        <a href="/aniket/">Aniket</a>
+                    </li>        
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>    
+</div>
     {% block body %}{% endblock %}
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

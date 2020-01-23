@@ -1,0 +1,166 @@
+{% extends 'index.html' %}
+{% block title %} Search Enquiry {% endblock %}
+{% block css %} {% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form action="/searchenq/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Search Enquiry</legend>
+                        <div class="form-group">
+                            <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                                <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
+                                <label style='margin-right: 25.25em' class="form-check-label">EnquiryAlias</label>
+                                <label style='margin-right: 2.25em' class="form-check-label">EnquiryID</label>
+                            </div>
+                            <br>
+
+
+                            <div class="form-group">
+                                <input id="fname" name="firstname" type="text" placeholder="First Name" class="form-control col-md-08">
+                            </div>
+
+                            <div class="form-group">
+                                    <input id="lname" name="lastname" type="text" placeholder="Last Name" class="form-control col-md-08">
+                            </div>
+        
+                            <div class="form-group">
+                                    <input id="email" name="email" type="text" placeholder="Email Address" class="form-control col-md-12">
+                            </div>
+    
+                            <div class="form-group">
+                                    <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control col-md-12">
+                            </div>
+    
+                            <div class="form-group">
+                                    <textarea class="form-control col-md-12" id="message" name="message" placeholder="Address" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <span style='margin-right: 6.25em' class = "label label-default">Courses Interested: </span>
+                                    <input type="checkbox" class="form-check-input" id="linux" checked>
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="linux">Linux</label>
+                                    <input type="checkbox" class="form-check-input" id="linux">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
+                                    <input type="checkbox" class="form-check-input" id="python">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="python">Python</label>
+                                    <input type="checkbox" class="form-check-input" id="devops">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="devops">DevOps</label>
+                                    <input type="checkbox" class="form-check-input" id="fullpython">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
+                                    <input type="checkbox" class="form-check-input" id="hadoop">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
+                            </div>
+
+                            <div class="form-group">
+                                <span style='margin-right: 8.00em' class = "label label-default">Enquiry Source: </span>
+                                    <input type="checkbox" class="form-check-input" id="call" checked>
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="call">Call</label>
+                                    <input type="checkbox" class="form-check-input" id="board">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="board">Board</label>
+                                    <input type="checkbox" class="form-check-input" id="reference">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="reference">Reference</label>
+                                    <input type="checkbox" class="form-check-input" id="yet5">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="yet5">Yet5</label>
+                                    <input type="checkbox" class="form-check-input" id="f2f">
+                                    <label style='margin-right: 2.25em' class="form-check-label" for="f2f">Face-2-Face</label>
+                            </div>
+
+                            <div class="form-group">
+                                    <span style='margin-right: 12.00em' class = "label label-default">Status: </span>
+                                        <input type="radio" class="form-check-input" id="student" name="status" onclick="ShowHideDiv()" >
+                                        <label style='margin-right: 5.25em' class="form-check-label" for="student">Student</label>
+                                        <input type="radio" class="form-check-input" id="employee" name="status" onclick="ShowHideDiv()">
+                                        <label style='margin-right: 5.25em' class="form-check-label" for="employee">Employee</label>
+                            </div>
+
+                            <fieldset class="form-group" id="studentdetails" style="display: none">
+                                <div class="row">
+                                    <legend class="col-md-3 col-form-label pt-0">Student Details</legend>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control collegename" id="college" placeholder="College Name" name="college">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control stream" id="stream" placeholder="Stream(BCA,BCS,BTech)..." name="stream">
+                                        </div>
+                                        <div class="form-group">
+                                                <span style='margin-right: 12.00em' class = "label label-default">Year: </span>
+                                                    <input type="radio" class="form-check-input" id="fy" name="year">
+                                                    <label style='margin-right: 5.25em' class="form-check-label" for="fy">FY</label>
+                                                    <input type="radio" class="form-check-input" id="sy" name="year">
+                                                    <label style='margin-right: 5.25em' class="form-check-label" for="sy">SY</label>
+                                                    <input type="radio" class="form-check-input" id="ty" name="year">
+                                                    <label style='margin-right: 5.25em' class="form-check-label" for="ty">TY</label>
+                                                    <input type="radio" class="form-check-input" id="passout" name="year">
+                                                    <label style='margin-right: 5.25em' class="form-check-label" for="passout">Passout</label>
+                                            </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="form-group" id="employeedetails" style="display: none">
+                                    <div class="row">
+                                        <legend class="col-md-3 col-form-label pt-0">Employee Details</legend>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="company" placeholder="Company Name" name="company">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="designation" placeholder="Designation" name="designation">
+                                            </div>
+                                            <div class="form-group">
+                                                    <input type="text" class="form-control" id="years_of_exper" placeholder="No. of Years of Experience" name="year-exper">
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </fieldset>
+    
+                                <div class="form-group">  
+                                        <span style='margin-right: 5.00em' class = "label label-default">Preferred Date/Time: </span>
+                                        <input type="text" class="form-check-input" id="trainer" name="date_time">
+                                </div>
+
+                                <br>
+                                <div class="form-group">
+                                        <textarea class="form-control col-md-12" id="comments" name="comments" placeholder="Comments" rows="3"></textarea>
+                                </div>
+
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+    
+{% endblock %}
+{% block js%}   
+<script>
+
+    function ShowHideDiv() {
+        var stud = document.getElementById("student");
+        var emp = document.getElementById("employee");
+
+        var studtrue = document.getElementById("studentdetails");
+        var emptrue = document.getElementById("employeedetails");
+
+        studtrue.style.display = stud.checked ? "block" : "none";
+        emptrue.style.display = emp.checked ? "block" : "none";
+    
+    }
+
+{% if thank %}
+alert('Thanks for Registration. We will get back to you soon!');
+document.location = "/searchenq/";
+{% endif %}
+
+</script>
+ 
+{% endblock %} 
