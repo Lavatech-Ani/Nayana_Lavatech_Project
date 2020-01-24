@@ -14,22 +14,22 @@
                               <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
                               <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
                               <label style='margin-right: 25.25em' class="form-check-label">BatchAlias</label>
-                              <label style='margin-right: 2.25em' class="form-check-label">BatchID<input id="batchid" name="batchid" value="100"></label>
+                              <label style='margin-right: 2.25em' class="form-check-label">BatchID<input id="batchid" name="batchid" value="{{ posts.batchid }}"></label>
                               <div id="batchalias" style='margin-left: 33.25em' name="batchalias"></div>
-                          </div>
+                            </div>
                           <br>
 
                           <div class="form-group">  
-                            <span style='margin-right: 5.00em' class = "label label-default">Trainer Name: </span>
-                                  <input type="radio" class="form-check-input" id="trainer_aniket" name="trainer_aniket">
+                            <span style='margin-right: 5.00em' id="trainer" class = "label label-default">Trainer Name: </span>
+                                  <input type="radio" class="form-check-input" value="Aniket" onclick="myFunction(this.value)" id="trainer_aniket" name="trainer_aniket">
                                   <label style='margin-right: 3.25em' class="form-check-label" for="trainer_aniket">Aniket</label>
-                                  <input type="radio" class="form-check-input" id="trainer_yogita" name="trainer_yogita">
+                                  <input type="radio" class="form-check-input" value="Yogita" onclick="myFunction(this.value)" id="trainer_yogita" name="trainer_yogita">
                                   <label style='margin-right: 3.25em' class="form-check-label" for="trainer_yogita">Yogita</label>
                           </div>
 
                           <div class="form-group">
                             <span style='margin-right: 8.25em' class = "label label-default">Course: </span>
-                                <input type="checkbox" class="form-check-input" value="linux" id="linux" name ="linux" checked>
+                                <input type="checkbox" class="form-check-input" id="linux" name ="linux" checked>
                                 <label style='margin-right: 3.25em' class="form-check-label" for="linux">Linux</label>
                                 <input type="checkbox" class="form-check-input" id="aws" name ="aws">
                                 <label style='margin-right: 3.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
@@ -113,15 +113,12 @@ console.log('working');
 console.log('clicked');
 const batchalias = document.getElementById("batchalias");
 const batchid = document.getElementById("batchid").value;
-const linux = document.getElementById("linux").value;
-console.log(batchid);
-console.log(linux);
-btime.addEventListener("focus", function(){
-    const linuxCap = linux.charAt(0).toUpperCase() + linux.slice(1)
-    batchalias.textContent = "E-"+" "+linuxCap+"_"+ batchid;
-    name = batchalias.textContent;
-    console.log(name);
-});
+
+function myFunction(trainer) {
+  batchalias.textContent ="B-"+" "+trainer+"_"+ batchid;
+  name = batchalias.textContent;
+  console.log(name);
+}
 
 function AddFuction(){
   var sname = document.getElementById("sname");

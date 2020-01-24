@@ -16,13 +16,11 @@ def index(request):
 def enq(request):
     l1 =[]
     posts = Enq.objects.values('enqid')[0]
+    print(posts)
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','')
-        enqid = request.POST.get('enqid', '')
-        print("#############") 
-        print(enqid)
-        print("#############")  
+        enqid = request.POST.get('enqid', '') 
         fname = request.POST.get('fname', '')
         l1=[]
         l1.append(fname) 
@@ -121,8 +119,8 @@ def enq(request):
         l1.append(fname)
         abc = str(posts.items())
         value = abc[22]+abc[23]+abc[24]
-        ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1)
-        print(ans)    
+        ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1) 
+        print(ans)   
         enqalias = "E-"+" "+fname.capitalize()+"_"+lname[0:2].capitalize()+str(enqid)     
         enq = Enq(edate=edate, enqalias = enqalias, enqid = enqid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
         collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
@@ -262,15 +260,18 @@ def addmission(request):
     return render(request, 'addmission.html', {'posts': posts, 'thank': thank})
 
 def batch(request):
-    posts = Addmission.objects.all()
+    posts = Batch.objects.values('batchid')[0]
     print(posts)
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','') 
         batchid = request.POST.get('batchid','')
         batchalias = request.POST.get('batchalias','')
-        trainer_aniket = request.POST.get('trainer_aniket','off')
-        trainer_yogita = request.POST.get('trainer_yogita','off')
+        print(batchalias)
+        trainer_aniket = request.POST.get('trainer_aniket','')
+        print(trainer_aniket)
+        trainer_yogita = request.POST.get('trainer_yogita','')
+        print(trainer_yogita)
         linux = request.POST.get('linux','off')
         aws = request.POST.get('aws','off')
         python = request.POST.get('python','off')
@@ -284,10 +285,6 @@ def batch(request):
         specialday = request.POST.get('specialday','') 
         sname = request.POST.get('sname','')
         print(sname)
-        if trainer_aniket == "on":
-            trainer = "trainer_aniket"
-        if trainer_yogita == "on":
-            trainer = "trainer_yogita"
         courses=[]
         if linux == "on":
             courses.append("Linux")
@@ -306,8 +303,22 @@ def batch(request):
         if weekends == "on":
             batch_days = "weekends"
         if days == "on":
-            batch_days = specialday     
+            batch_days = specialday 
 
+        abc = str(posts.items())
+        value = abc[24]+abc[25]+abc[26]
+        print(value)
+        ans = Batch.objects.filter(batchid=value).update(batchid=F('batchid') + 1)
+        print(ans)
+        trainer = []
+        if trainer_aniket == "Aniket":
+          batchalias = "B-"+" "+"Aniket"+"_"+str(batchid)
+          trainer.append("Aniket") 
+          print(batchalias) 
+        elif trainer_yogita == "Yogita":
+          batchalias = "B-"+" "+"Yogita"+"_"+str(batchid)
+          trainer.append("Yogita")
+          print(batchalias)       
         batch = Batch(edate = edate,batchid = batchid, batchalias = batchalias, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
         batch.save()
         thank = True

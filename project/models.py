@@ -68,6 +68,8 @@ class Addmission(models.Model):
 
 class Batch(models.Model):
     edate = models.CharField(max_length=100, default=None)
+    batchid = models.IntegerField(default=0)
+    batchalias = models.CharField(max_length=50, default=None)
     trainer = models.CharField(max_length=50)
     courses = models.CharField(max_length=50, default=None)
     batch_time = models.CharField(max_length=50, default=None)
@@ -75,4 +77,4 @@ class Batch(models.Model):
     
 
     def __str__(self):
-        return self.trainer
+        return self.batchalias
