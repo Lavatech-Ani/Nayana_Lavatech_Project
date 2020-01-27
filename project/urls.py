@@ -8,6 +8,7 @@ urlpatterns = [
     path("addmission/", views.addmission, name='addmission'),
     path("batch/", views.batch, name='batch'),
     path("createalias/", views.createalias, name='createalias'),
+    path("studentdata/", views.studentdata, name='studentdata'),
     path("searchenq/", views.searchenq, name='searchenq'),
     path("searchaddmission/", views.searchaddmission, name='searchaddmission'),
     path("searchbatch/", views.searchbatch, name='searchbatch'),

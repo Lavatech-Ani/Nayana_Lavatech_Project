@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Enq, Addmission, Batch
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.dateformat import DateFormat
 from django.utils.formats import get_format
 from datetime import datetime
@@ -259,19 +259,29 @@ def addmission(request):
         thank = True 
     return render(request, 'addmission.html', {'posts': posts, 'thank': thank})
 
+def studentdata(request):
+    if request.method=="POST": 
+        sname = request.POST.get('sname','')
+        print(snames)
+    posts1 = Addmission.objects.all() 
+    for i in posts1:
+        if sname == str(i):
+            context = Addmission.objects.get(enqalias=i)
+            return render(request, 'addmission.html', {'posts1': posts1, 'context':context})
+
+
 def batch(request):
     posts = Batch.objects.values('batchid')[0]
     print(posts)
+    list=[]
+    posts1 = Addmission.objects.all()
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','') 
         batchid = request.POST.get('batchid','')
         batchalias = request.POST.get('batchalias','')
-        print(batchalias)
         trainer_aniket = request.POST.get('trainer_aniket','')
-        print(trainer_aniket)
         trainer_yogita = request.POST.get('trainer_yogita','')
-        print(trainer_yogita)
         linux = request.POST.get('linux','off')
         aws = request.POST.get('aws','off')
         python = request.POST.get('python','off')
@@ -283,7 +293,8 @@ def batch(request):
         weekends = request.POST.get('weekends','off')
         days = request.POST.get('days','off')
         specialday = request.POST.get('specialday','') 
-        sname = request.POST.get('sname','')
+        sname =[] 
+        sname.append(request.POST.get('list','')) 
         print(sname)
         courses=[]
         if linux == "on":
@@ -307,7 +318,6 @@ def batch(request):
 
         abc = str(posts.items())
         value = abc[24]+abc[25]+abc[26]
-        print(value)
         ans = Batch.objects.filter(batchid=value).update(batchid=F('batchid') + 1)
         print(ans)
         trainer = []
@@ -318,11 +328,16 @@ def batch(request):
         elif trainer_yogita == "Yogita":
           batchalias = "B-"+" "+"Yogita"+"_"+str(batchid)
           trainer.append("Yogita")
-          print(batchalias)       
+          print(batchalias) 
+        
+        for i in posts:
+          if sname == str(i):
+            context = Addmission.objects.get(enqalias=i)
+            print(context)        
         batch = Batch(edate = edate,batchid = batchid, batchalias = batchalias, trainer = trainer, courses=courses, batch_time = btime, batch_days = batch_days)
         batch.save()
-        thank = True
-    return render(request, 'batch.html', {'posts': posts, 'thank': thank})
+        thank = True   
+    return render(request, 'batch.html', {'posts': posts,'posts1': posts1, 'thank': thank})
 
 def searchenq(request):
     return render(request,'searchenquiry.html')
