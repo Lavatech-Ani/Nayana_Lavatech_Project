@@ -11,26 +11,35 @@ class Enq(models.Model):
     enqid = models.IntegerField(default=0)
     fname = models.CharField(max_length=50, default=None)
     lname = models.CharField(max_length=50, default=None)
-    email = models.CharField(max_length=50, default=None)
+    email = models.EmailField(max_length=50, default=None)
     phone = models.IntegerField(default=0)
     Address = models.CharField(max_length=5000)
-    courses = models.CharField(max_length=50, default=None)
+    courses = models.CharField(max_length=50)
     enquiry = models.CharField(max_length=70, default=None)
+    reference_name = models.CharField(max_length=70, default=None)
+    status = models.CharField(max_length=70, default=None)
     collagename = models.CharField(max_length=100, default=None)
     stream = models.CharField(max_length=50, default=None)
     year = models.CharField(max_length=50, default=None)
     company = models.CharField(max_length=50, default=None)
     designation = models.CharField(max_length=50, default=None)
     year_exper = models.CharField(max_length=50, default=None)
+    Preferred_day =  models.CharField(max_length=50, default=None)
     weekday_date = models.CharField(max_length=50, default=None)
-    weekdays = models.CharField(max_length=50, default=None)
+    weekdays_time = models.CharField(max_length=50, default=None)
     weekend_date = models.CharField(max_length=50, default=None)
-    weekend = models.CharField(max_length=50, default=None)
+    weekend_time = models.CharField(max_length=50, default=None)
     comments = models.CharField(max_length=50, default=None)
 
 
     def __str__(self):
-        return self.enqalias      
+        return self.enqalias   
+
+    def __iter__(self):
+        for field_name in self._meta.get_fields():
+            last = str(field_name).split('.')[-1]
+            value = getattr(self, last, None)
+            yield (field_name, value)       
     
 
 class Addmission(models.Model):
@@ -66,6 +75,13 @@ class Addmission(models.Model):
     def __str__(self):
         return self.fname
 
+    def __iter__(self):
+        for field_name in self._meta.get_fields():
+            last = str(field_name).split('.')[-1]
+            value = getattr(self, last, None)
+            yield (field_name, value)       
+        
+
 class Batch(models.Model):
     edate = models.CharField(max_length=100, default=None)
     batchid = models.IntegerField(default=0)
@@ -78,3 +94,10 @@ class Batch(models.Model):
 
     def __str__(self):
         return self.batchalias
+
+    def __iter__(self):
+        for field_name in self._meta.get_fields():
+            last = str(field_name).split('.')[-1]
+            value = getattr(self, last, None)
+            yield (field_name, value)       
+        

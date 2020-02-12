@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import Enquiry
 from .models import Enq, Addmission, Batch
 from django.http import HttpResponse, JsonResponse
 from django.utils.dateformat import DateFormat
@@ -12,8 +13,27 @@ import json
 
 def index(request):
     return render(request,'index.html')
-    
+
 def enq(request):
+    posts = Enq.objects.values('enqid')[0]
+    print(posts)
+    form = Enquiry(request.POST or None)
+    abc = str(posts.items())
+    print(abc)
+    value = abc[22]+abc[23]+abc[24]
+    print(value)
+    ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1) 
+    print(ans)
+    if form.is_valid():
+        form.save()
+    context = {
+        'form':form
+        
+    }
+    
+    return render(request,'enq.html',context,{'posts': posts})  
+    
+def enq1(request):
     l1 =[]
     posts = Enq.objects.values('enqid')[0]
     print(posts)
@@ -39,7 +59,7 @@ def enq(request):
         reference = request.POST.get('reference','off')
         yet5 = request.POST.get('yet5','off')
         f2f = request.POST.get('f2f','off')
-        rname = request.POST.get('rname','')
+        reference_name  = request.POST.get('reference_name ','')
         student = request.POST.get('student','off')
         employee = request.POST.get('employee','off')
         collage = request.POST.get('collage','')
@@ -123,7 +143,7 @@ def enq(request):
         print(ans)   
         enqalias = "E-"+" "+fname.capitalize()+"_"+lname[0:2].capitalize()+str(enqid)     
         enq = Enq(edate=edate, enqalias = enqalias, enqid = enqid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
-        collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
+        reference_name =reference_name , collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
         weekday_date = wddate, weekdays = weekdays, weekend_date = wedate, weekend = weekend, comments = comments)
         enq.save()        
         thank = True 
@@ -141,6 +161,7 @@ def createalias(request):
 
 def addmission(request):
     posts = Enq.objects.all()
+    
     
     thank = False
     if request.method=="POST":
@@ -340,55 +361,69 @@ def batch(request):
     return render(request, 'batch.html', {'posts': posts,'posts1': posts1, 'thank': thank})
 
 def searchenq(request):
+
     return render(request,'searchenquiry.html')
 
 def searchaddmission(request):
+
     return render(request,'searchaddmission.html')
 
 def searchbatch(request):
+
     return render(request,'searchbatch.html')
 
 
 def modifyenq(request):
+
     return render(request,'modifyenquiry.html')
 
 
 def modifyaddmission(request):
+
     return render(request,'modifyaddmission.html')
 
 
 def modifybatch(request): 
+
     return render(request,'modifybatch.html')
 
 
 def reportenq(request):
+
     return render(request,'reportenquiry.html')
  
 
 
 def reportbatch(request):
+
     return render(request,'reportbatch.html')
 
 
 def reportcontact(request):
+
     return render(request,'reportcontact.html')
 
 
 def feesnew(request):
+
     return render(request,'feesnew.html')
 
 
 def feesreport(request): 
+
     return render(request,'feesreport.html')
 
 def feessearch(request): 
+
     return render(request,'feessearch.html')    
 
 
 def internnew(request):
+
     return render(request,'internnew.html')
 
 
 def internupdate(request):
+    
     return render(request,'internupdate.html')
        

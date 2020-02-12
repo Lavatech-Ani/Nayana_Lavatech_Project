@@ -6,3 +6,5 @@ from .models import Enq, Addmission, Batch
 admin .site.register(Enq)
 admin .site.register(Addmission)
 admin .site.register(Batch)
+
+
