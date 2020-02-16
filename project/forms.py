@@ -1,5 +1,6 @@
 from django import forms
-from .models import Enq
+from .models import Enq , Addmission
+
 
 
 
@@ -25,22 +26,23 @@ class Enquiry(forms.ModelForm):
     courses = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple(attrs={'class': 'inline'}))
     enquiry = forms.ChoiceField(choices=enquiry_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
     status = forms.ChoiceField(choices=status_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
-    year = forms.ChoiceField(choices=year_choices, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    year = forms.ChoiceField(choices=year_choices,required=False, widget=forms.RadioSelect(attrs={'class': 'inline'}))
     Preferred_day = forms.ChoiceField(choices=preferred_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
+
     class Meta:
         model = Enq
         fields = '__all__'
         widgets = {
             'edate': forms.DateInput(
                 attrs={ 'style' : 'margin-right: 15.25em' , 'id' : "edate" ,  'type' : "date" , 'class' : "form-check-label"}),
+            'enqalias': forms.TextInput(
+                attrs={ 'id' : "enqalias" , 'style' : 'margin-right: 15.25em' , 'name' : "enqalias"}), 
             'enqid': forms.TextInput(
-                attrs={ 'id' : "enqid" , 'value' : "{{ posts.enqid }}"}), 
+                attrs={'id' : "enqid" , 'name':"enqid" , 'value':'{{ form.enqid.value }}'}), 
             'fname': forms.TextInput(
                 attrs={ 'class':"form-control col-md-08 fname" , 'id':"fname" , 'placeholder':"First Name"}),
             'lname': forms.TextInput(
                 attrs={ 'class':"form-control col-md-08" , 'id':"lname" , 'placeholder':"Last Name"}), 
-            'enqalias': forms.TextInput(
-                attrs={ 'id' : "enqalias" , 'style' : 'margin-right: 15.25em' , 'name' : "enqalias"}), 
             'email': forms.EmailInput(
                 attrs={'id':"email" , 'placeholder':"Email Address" , 'class':"form-control col-md-12"}), 
             'phone': forms.NumberInput(
@@ -70,5 +72,7 @@ class Enquiry(forms.ModelForm):
             'comments' : forms.Textarea(
                 attrs={ 'class' : "form-control col-md-12" , 'id' : "comments" , 'placeholder' : "Comments" , 'rows' : "3"}),                       
         }
+        
+
 
     

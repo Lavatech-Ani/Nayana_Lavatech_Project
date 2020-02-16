@@ -7,7 +7,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form action="/enq/" method="post">{% csrf_token %}
+                <form method="POST" novalidate>
+                {% csrf_token %}
                     <fieldset>
                         <legend class="text-xs-center header">Enquiry</legend>
                         <div class="form-group">
@@ -15,8 +16,8 @@
                             {{ form.edate }}
                             <label style='margin-right: 1.25em' class="form-check-label">EnquiryAlias: {{ form.enqalias }} </label>
                              
-                            <label style='margin-right: 1.25em' class="form-check-label">EnquiryID :{{ form.enqid }} </label>
-
+                            <label style='margin-right: 1.25em' class="form-check-label">  EnquiryID: {{ form.enqid }} </label>
+                        
                         </div>
                         <br>
                         <div class="form-group">
@@ -166,6 +167,7 @@ email.addEventListener("focus", function(){
     name = enqalias.textContent;
     console.log(name);
 });
+
 
 
 function ShowHideDiv() {

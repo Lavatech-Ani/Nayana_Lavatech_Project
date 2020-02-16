@@ -15,139 +15,34 @@ def index(request):
     return render(request,'index.html')
 
 def enq(request):
-    posts = Enq.objects.values('enqid')[0]
-    print(posts)
-    form = Enquiry(request.POST or None)
-    abc = str(posts.items())
-    print(abc)
-    value = abc[22]+abc[23]+abc[24]
-    print(value)
-    ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1) 
-    print(ans)
-    if form.is_valid():
-        form.save()
-    context = {
-        'form':form
-        
-    }
-    
-    return render(request,'enq.html',context,{'posts': posts})  
-    
-def enq1(request):
-    l1 =[]
-    posts = Enq.objects.values('enqid')[0]
-    print(posts)
+    print('testing')
     thank = False
-    if request.method=="POST":
-        edate = request.POST.get('edate','')
-        enqid = request.POST.get('enqid', '') 
-        fname = request.POST.get('fname', '')
-        l1=[]
-        l1.append(fname) 
-        lname = request.POST.get('lname', '')
-        email = request.POST.get('email', '')
-        phone = request.POST.get('phone', '')
-        Address = request.POST.get('Address', '')
-        linux = request.POST.get('linux','off')
-        aws = request.POST.get('aws','off')
-        python = request.POST.get('python','off')
-        devops = request.POST.get('devops','off')
-        fullpython = request.POST.get('fullpython','off')
-        hadoop = request.POST.get('hadoop','off')
-        call = request.POST.get('call','off')
-        board = request.POST.get('board','off')
-        reference = request.POST.get('reference','off')
-        yet5 = request.POST.get('yet5','off')
-        f2f = request.POST.get('f2f','off')
-        reference_name  = request.POST.get('reference_name ','')
-        student = request.POST.get('student','off')
-        employee = request.POST.get('employee','off')
-        collage = request.POST.get('collage','')
-        stream = request.POST.get('stream','')
-        fy = request.POST.get('fy','off')
-        sy = request.POST.get('sy','off')
-        ty = request.POST.get('ty','off')
-        passout = request.POST.get('passout','off')
-        company = request.POST.get('company','')
-        designation = request.POST.get('designation','')
-        year_exper = request.POST.get('year_exper','')
-        weekdays = request.POST.get('weekdays','off')
-        weekend = request.POST.get('weekend','off')
-        #both = request.POST.get('both','off')
-        wddate = request.POST.get('wddate','')
-        weekdays = request.POST.get('weekdays','')
-        wedate = request.POST.get('wedate','')
-        weekend = request.POST.get('weekend','')
-        comments = request.POST.get('comments','')
-
-        courses=[]
-        if student == "off":
-            collagename = "Null"
-            year = "Null"
-            stream = "Null"
-        if employee == "off":
-            company = "Null"
-            designation = "Null"
-            year_exper = "Null"
-        if linux == "on":
-            courses.append("Linux")
-        if aws == "on":
-            courses.append("AWS")
-        if python == "on":
-            courses.append("Python")
-        if devops == "on":
-            courses.append("Devops")  
-        if fullpython == "on":
-            courses.append("FullStack") 
-        if hadoop == "on":
-            courses.append("Hadoop")  
-
-        if call == "on":
-            enquiry = "call"
-        elif board == "on":
-            enquiry = "Board"
-        elif yet5 == "on":
-            enquiry = "yet5"
-        elif f2f == "on":
-            enquiry = "Face to face"
-        elif reference == "on":
-            enquiry = rname
-
-        if student == "on":
-            collagename = collage
-            stream = stream  
-            if fy == "on":
-                year = "First Year" 
-            if sy == "on":
-                year = "Second Year"
-            if ty == "on":
-                year = "Thrid Year"
-            if passout == "on":
-                year = "pass Out"  
-        if employee == "on":
-            company = company
-            designation = designation  
-            year_exper = year_exper 
-
-        if weekdays == "on": 
-            wddate = wddate
-            weekdays = weekdays
-        if weekdays == "on": 
-            wedate = wedate
-            weekend = weekend
-        l1=[]
-        l1.append(fname)
-        abc = str(posts.items())
-        value = abc[22]+abc[23]+abc[24]
-        ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1) 
-        print(ans)   
-        enqalias = "E-"+" "+fname.capitalize()+"_"+lname[0:2].capitalize()+str(enqid)     
-        enq = Enq(edate=edate, enqalias = enqalias, enqid = enqid, fname=fname, lname=lname, email=email, phone=phone, Address=Address, courses=courses, enquiry=enquiry, 
-        reference_name =reference_name , collagename = collagename, stream=stream, year=year, company = company, designation = designation, year_exper = year_exper, 
-        weekday_date = wddate, weekdays = weekdays, weekend_date = wedate, weekend = weekend, comments = comments)
-        enq.save()        
+    if request.method == 'POST':
+      form = Enquiry(request.POST)
+      if form.is_valid():
+        form.save()
         thank = True 
-    return render(request, 'enq.html', {'posts': posts, 'thank': thank})
+        posts = Enq.objects.values('enqid')[0]
+        print(posts)
+        newid = int(posts['enqid'])+1
+        form = Enquiry(initial={'enqid': newid})
+        abc = str(posts.items())
+        print(abc)
+        value = abc[22]+abc[23]+abc[24]
+        print(value)
+        ans = Enq.objects.filter(enqid=value).update(enqid=F('enqid') + 1) 
+        print(ans)
+        form = Enquiry(initial={'enqid':value})
+      else:
+          print('wrong')
+          print(form.errors)
+    posts = Enq.objects.values('enqid')[0]
+    print(posts)
+    newid = int(posts['enqid'])+1
+    form = Enquiry(initial={'enqid': newid})
+    context = {'form':form,'thank': thank}
+    print('hii4')
+    return render(request,'enq.html',context)  
     
 def createalias(request):
     if request.method=="POST": 
@@ -161,8 +56,6 @@ def createalias(request):
 
 def addmission(request):
     posts = Enq.objects.all()
-    
-    
     thank = False
     if request.method=="POST":
         edate = request.POST.get('edate','')

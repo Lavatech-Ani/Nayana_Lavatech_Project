@@ -6,7 +6,6 @@ from . import views
 urlpatterns = [
     path("",views.index, name="project"),
     path("enq/", views.enq, name='enq'),
-    path("enq1/", views.enq1, name='enq1'),
     path("addmission/", views.addmission, name='addmission'),
     path("batch/", views.batch, name='batch'),
     path("createalias/", views.createalias, name='createalias'),
