@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% block title %}  Select StudentAlias {% endblock %}
+
+{% block css %} {% endblock %}
+{% block body %}
+<div class="main">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form method="POST">{% csrf_token %}
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn" type="submit">EnquiryAlias</button>
+                        <div id="myDropdown" class="dropdown-content show">
+                            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                            {% for post in posts %} 
+                                <a href="{{ post.enqalias }}" value="{{ post.enqalias }}">{{ post.enqalias }}</a>
+                            {% endfor %}    
+                        </div>
+                    </div>    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                    </div>
+                    </fieldset> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+{% endblock %}
+{% block js%}
+<script>
+console.log('working');
+console.log('clicked');
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+      console.log(a[i].style.display);
+    } else {
+      a[i].style.display = "none";
+      console.log(a[i].style.display);
+    }
+  }
+}
+</script>    
+{% endblock %} 
+
+</body>
+
+</html>

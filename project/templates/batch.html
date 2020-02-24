@@ -1,122 +1,98 @@
 {% extends 'index.html' %}
 {% block title %} Batch Form {% endblock %}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
-<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
 {% block css %} {% endblock %}
 
 {% block body %}
 <div class="main">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="well well-sm">
-        <form action="/batch/" method="post">{% csrf_token %}
-          <fieldset>
-            <legend class="text-xs-center header">Batch Creation</legend>
-            <div class="form-group">
-              <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
-              <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
-              <label style='margin-right: 25.25em' class="form-check-label">BatchAlias</label>
-              <label style='margin-right: 2.25em' class="form-check-label">BatchID<input id="batchid" name="batchid" value="{{ posts.batchid }}"></label>
-              <div id="batchalias" style='margin-left: 33.25em' name="batchalias"></div>
-            </div><br>
-            <div class="form-group">  
-              <span style='margin-right: 5.00em' id="trainer" class = "label label-default">Trainer Name: </span>
-              <input type="radio" class="form-check-input" value="Aniket" onclick="myFunction(this.value)" id="trainer_aniket" name="trainer_aniket">
-              <label style='margin-right: 3.25em' class="form-check-label" for="trainer_aniket">Aniket</label>
-              <input type="radio" class="form-check-input" value="Yogita" onclick="myFunction(this.value)" id="trainer_yogita" name="trainer_yogita">
-              <label style='margin-right: 3.25em' class="form-check-label" for="trainer_yogita">Yogita</label>
-            </div>
-            <div class="form-group">
-              <span style='margin-right: 8.25em' class = "label label-default">Course: </span>
-              <input type="checkbox" class="form-check-input" id="linux" name ="linux" checked>
-              <label style='margin-right: 3.25em' class="form-check-label" for="linux">Linux</label>
-              <input type="checkbox" class="form-check-input" id="aws" name ="aws">
-              <label style='margin-right: 3.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
-              <input type="checkbox" class="form-check-input" id="python" name ="python">
-              <label style='margin-right: 3.25em' class="form-check-label" for="python">Python</label>
-              <input type="checkbox" class="form-check-input" id="devops" name ="devops">
-              <label style='margin-right: 3.25em' class="form-check-label" for="devops">DevOps</label>
-              <input type="checkbox" class="form-check-input" id="fullpython" name ="fullpython">
-              <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
-              <input type="checkbox" class="form-check-input" id="hadoop" name ="hadoop">
-              <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
-            </div>
-            <div class="form-group">  
-              <span style='margin-right: 5.00em' class = "label label-default">Batch Time: </span>
-              <input type="time" name="btime" id="btime">
-            </div>
-            <div class="form-group">
-              <span style='margin-right: 9.00em' class = "label label-default">Days: </span>
-              <input type="radio" class="form-check-input" id="weekdays" name="weekdays">
-              <label style='margin-right: 5.25em' class="form-check-label" for="weekdays">WeekDays</label>
-              <input type="radio" class="form-check-input" id="weekends" name="weekends">
-              <label style='margin-right: 5.25em' class="form-check-label" for="weekends">WeekEnds</label>
-              <input type="radio" class="form-check-input" id="other" name="days">
-              <input type="text" placeholder="SpecificDays" style='margin-right: 5.25em' class="form-check-label" for="other" name="specialday">
-            </div> 
-            <div class="row d-flex justify-content-center mt-100">
-              <div class="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
-                {% for post in posts1 %}
-                <option value="{{ post.enqalias }}">{{ post.enqalias }}</option>
-                {% endfor %}
-              </select> </div>
-            </div>
-            <span style='margin-right: 5.00em' class = "label label-default">Student Alias: </span>
-            <select class="select_field_class" multiple="multiple" name="list" id="list" onchange="getSelectValue();">
-              {% for post in posts1 %} 
-              <option value="{{ post.enqalias }}">{{ post.enqalias }}</option>
-              {% endfor %} 
-            </select>                
-            <table class="table table-sm" id="myTable">
-              <thead>
-                <tr>
-                  <th scope="col">No.</th>
-                  <th scope="col">Student Name</th>
-                  <th scope="col">Student Alias</th>
-                  <th scope="col">Contact Details</th>
-                  <th scope="col">Email-ID</th>
-                  <th scope="col">Fees Due</th>
-                  <th scope="col">Fees Due Date</th>
-                </tr>
-              </thead>
-                {% for post in posts1 %}
-                <tbody style="display:none">
-                  <tr>
-                    <th scope="row">{{ post.enqid }}</th>
-                    <td>{{ post.fname }} {{ post.lname }}</td>
-                    <td>{{ post.enqalias }}</td>
-                    <td>{{ post.phone }}</td>
-                    <td>{{ post.email }}</td>
-                    <td>{{ post.tot_fees }}</td>
-                  </tr>
-                </tbody>
-                {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form action="/batch/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Batch Creation</legend>
+                        <div class="form-group">
+                            <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                            {{ form.edate }}
+                            <label style='margin-right: 1.25em' class="form-check-label">BatchAlias</label>
+                            {{ form.batchalias }}
+                            <label style='margin-right: 1.25em' class="form-check-label">BatchIDid</label>
+                            {{ form.batchid }}
+                        </div><br>
+                        <div class="form-group">  
+                            <span style='margin-right: 5.00em' id="trainer" class = "label label-default">Trainer Name: </span>
+                            {% for radio in form.trainer %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 3.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <span style='margin-right: 8.25em' class = "label label-default">Course: </span>
+                            {% for checkbox in form.courses %}
+                                {{ checkbox.tag }}
+                                <label style='margin-right: 3.25em' >{{ checkbox.choice_label }}</label>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">  
+                            <span style='margin-right: 5.00em' class = "label label-default">Batch Time: </span>
+                            {{ form.batch_time }}
+                        </div>
+                        <div class="form-group">
+                            <span style='margin-right: 9.00em' class = "label label-default">Days: </span>
+                            {% for radio in form.batch_days %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 3.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
+                            {{ form.special_day }}
+                        </div> 
+                        <span style='margin-right: 5.00em' class = "label label-default">Student Alias: </span> 
+                        {{ form.sname }}
+                          
+                        <table class="table table-sm" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Student Name</th>
+                                    <th scope="col">Student Alias</th>
+                                    <th scope="col">Contact Details</th>
+                                    <th scope="col">Email-ID</th>
+                                    <th scope="col">Fees Due</th>
+                                    <th scope="col">Fees Due Date</th>
+                                </tr>
+                            </thead>
+                            {% for post in posts1 %}
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ post.add_id }}</th>
+                                    <td>{{ post.fname }} {{ post.lname }}</td>
+                                    <td>{{ post.add_alias }}</td>
+                                    <td>{{ post.phone }}</td>
+                                    <td>{{ post.email }}</td>
+                                    <td>{{ post.tot_fees }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
                             <tbody>
                             {% for i in '123456789' %}
-                              
-                              <tr>
-                                <th id="demo{{i}}0">{{ post.enqid }}</th>
-                                <td id="demo{{i}}1">{{ post.fname }} {{ post.lname }}</td>
-                                <td id="demo{{i}}2">{{ post.enqalias }}</td>
-                                <td id="demo{{i}}3">{{ post.phone }}</td>
-                                <td id="demo{{i}}4">{{ post.email }}</td>
-                                <td id="demo{{i}}5">{{ post.tot_fees }}</td>
-                              </tr>
-                              
+                                <tr>
+                                    <th id="demo{{i}}0">{{ post.add_id }}</th>
+                                    <td id="demo{{i}}1">{{ post.fname }} {{ post.lname }}</td>
+                                    <td id="demo{{i}}2">{{ post.add_alias }}</td>
+                                    <td id="demo{{i}}3">{{ post.phone }}</td>
+                                    <td id="demo{{i}}4">{{ post.email }}</td>
+                                    <td id="demo{{i}}5">{{ post.tot_fees }}</td>
+                                </tr>
                             {% endfor %}  
                             </tbody>
-                          </table> 
-                            <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
+                        </table> 
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-        </div>
+         </div>
     </div>
+</div>
     
     
 {% endblock %}
@@ -124,7 +100,13 @@
 <script>
 console.log('working');
 console.log('clicked');
-  function getSelectValue()
+
+$('select').selectpicker();
+
+var x = document.getElementById("id_sname"); 
+console.log(x);
+
+function getSelectValue()
         {
             var selectedValue = document.getElementById("list").value;
             for (i = 0; i < selectedValue.length; i++) {
@@ -145,22 +127,13 @@ console.log('clicked');
         getSelectValue();
 
 
-
-const batchalias = document.getElementById("batchalias");
-const batchid = document.getElementById("batchid").value;
-
-function myFunction2() {
-  var x = document.getElementById("sname").value; 
-  document.getElementById("demo").innerHTML = "You selected: " + x;
-}
-
 function myFunction(trainer) {
-  batchalias.textContent ="B-"+" "+trainer+"_"+ batchid;
+  const batchalias = document.getElementById("batchalias");
+  const batchid = document.getElementById("batchid").value;
+  batchalias.value ="B-"+" "+trainer+"_"+ batchid;
   name = batchalias.textContent;
   console.log(name);
 }
-
-
 
 {% if thank %}
 alert('Thanks for Registration. We will get back to you soon!');

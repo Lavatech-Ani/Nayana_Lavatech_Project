@@ -1,7 +1,5 @@
 from django import forms
-from .models import Enq , Addmission
-
-
+from .models import Enq , Addmission , Batch
 
 
 # Create your models here.
@@ -26,7 +24,7 @@ class Enquiry(forms.ModelForm):
     courses = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple(attrs={'class': 'inline'}))
     enquiry = forms.ChoiceField(choices=enquiry_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
     status = forms.ChoiceField(choices=status_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
-    year = forms.ChoiceField(choices=year_choices,required=False, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    year = forms.ChoiceField(required=False, choices=year_choices,  widget=forms.RadioSelect(attrs={'class': 'inline'}))
     Preferred_day = forms.ChoiceField(choices=preferred_choices, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
 
     class Meta:
@@ -74,5 +72,107 @@ class Enquiry(forms.ModelForm):
         }
         
 
-
+class AddmissionForm(forms.ModelForm):
+    choices = (
+    ('linux', 'Linux'),('aws', 'AWS(Cloud)'),('python', 'Python'),('devops', 'DevOps'),('fullpython', 'FullStack(Python)'),('hadoop', 'HadoopAdmin'),
+    )
+    pay_fees = (
+    ('one_install', 'One Installment'),('two_install', 'Two Installment'),('three_install', 'Three Installment'),
+    )
+    status = (
+    ('Paid', 'Paid'),('Not Paid', 'Not Paid'),('Discontinue', 'Discontinue'),
+    )
+    courses = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple(attrs={'class': 'inline'}))
+    pay_fees = forms.ChoiceField(choices=pay_fees, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"}))
+    status = forms.Select(choices=status)
     
+    class Meta:
+        status = (
+        ('Paid', 'Paid'),('Not Paid', 'Not Paid'),('Discontinue', 'Discontinue'),
+        )
+        model = Addmission
+        fields = '__all__'
+        widgets = {
+            'add_date': forms.DateInput(
+                attrs={ 'style':'margin-right: 20.25em' , 'id':"add_date" , 'name':"add_date" , 'type':"date" , 'class':"form-check-label"}),
+            'add_alias': forms.TextInput(
+                attrs={ 'id':"enqalias" , 'name':"enqalias" , 'value':"{{ form.add_alias.value }}"}), 
+            'add_id': forms.TextInput(
+                attrs={ 'id':"add_id" , 'name':"add_id" , 'value':'{{ form.add_id.value }}'}), 
+            'fname': forms.TextInput(
+                attrs={ 'id':"fname" , 'name':"fname" , 'value':"{{ x.fname.value }}" , 'placeholder':"First Name" , 'class':"form-control col-md-08"}),
+            'lname': forms.TextInput(
+                attrs={ 'id':"lname" , 'name':"lname" , 'value':"{{ form.lname.value }}" , 'placeholder':"Last Name" , 'class':"form-control col-md-08"}), 
+            'email': forms.EmailInput(
+                attrs={'id':"email" , 'name':"email" ,'value':"{{context.email}}" , 'placeholder':"Email Address" , 'class':"form-control col-md-12"}), 
+            'phone': forms.NumberInput(
+                attrs={ 'id':"phone" , 'name':"phone" , 'value':"{{context.phone}}" , 'placeholder':"Phone" , 'class':"form-control col-md-12"}),
+            'Address': forms.TextInput(
+                attrs={ 'class':"form-control col-md-12" , 'id':"Address" , 'name':"Address" , 'value':"{{context.Address}}" , 'placeholder':"Address" , 'rows':"3"}), 
+            'tot_fees': forms.NumberInput(
+                attrs={ 'class':"form-check-input" , 'id':"tot_fees" , 'name':"tot_fees" , 'placeholder':"Total Fess"}), 
+            'one_install_date': forms.DateInput(
+                attrs={ 'id':"one_install_date" , 'name':"one_install_date", 'type':"date" , 'class':"resizedTextbox"}), 
+            'one_install_fees': forms.TextInput(
+                attrs={ 'name':"one_install_fees" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}), 
+            'status': forms.Select(choices=status , attrs={'class':"resizedTextbox" , 'name':"status" , 'id':"status"}),
+            'two_install_date1': forms.DateInput(
+                attrs={ 'id':"two_install_date1" , 'name':"two_install_date1", 'type':"date" , 'class':"resizedTextbox"}), 
+            'two_install_fees1': forms.TextInput(
+                attrs={ 'name':"two_install_fees1" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}), 
+            'two_install_date2': forms.DateInput(
+                attrs={ 'id':"two_install_date2" , 'name':"two_install_date2", 'type':"date" , 'class':"resizedTextbox"}),
+            'two_install_fees2': forms.TextInput(
+                attrs={ 'name':"two_install_fees2" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}), 
+            'three_install_date1': forms.DateInput(
+                attrs={ 'id':"three_install_date1" , 'name':"three_install_date1", 'type':"date" , 'class':"resizedTextbox"}), 
+            'three_install_fees1': forms.TextInput(
+                attrs={ 'name':"three_install_fees1" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}), 
+            'three_install_date2': forms.DateInput(
+                attrs={ 'id':"three_install_date2" , 'name':"three_install_date2", 'type':"date" , 'class':"resizedTextbox"}), 
+            'three_install_fees2': forms.TextInput(
+                attrs={ 'name':"three_install_fees2" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}),                                             
+            'three_install_date3' : forms.DateInput(
+                attrs={ 'id':"three_install_date3" , 'name':"three_install_date3", 'type':"date" , 'class':"resizedTextbox"}),
+            'three_install_fees3' : forms.TextInput(
+                attrs={ 'name':"three_install_fees3" , 'placeholder':"Enter fees" , 'class':"resizedTextbox"}),  
+            'status1' : forms.Select(choices=status , attrs={'class':"resizedTextbox" , 'name':"status1" , 'id':"status1"}),
+            'status2' : forms.Select(choices=status , attrs={'class':"resizedTextbox" , 'name':"status2" , 'id':"status2"}),   
+            'status3' : forms.Select(choices=status , attrs={'class':"resizedTextbox" , 'name':"status3" , 'id':"status3"}),
+            'comments' : forms.Textarea(
+                attrs={ 'class' : "form-control col-md-12" , 'id' : "comments" , 'placeholder' : "Comments" , 'rows' : "3"}),                                        
+        }  
+
+class BatchForm(forms.ModelForm):
+    trainer_choices = (
+    ('trainer_aniket', 'Aniket'),('trainer_yogita', 'Yogita'),
+    )
+    choices = (
+    ('linux', 'Linux'),('aws', 'AWS(Cloud)'),('python', 'Python'),('devops', 'DevOps'),('fullpython', 'FullStack(Python)'),('hadoop', 'HadoopAdmin'),
+    )
+    day_choices = (
+    ('weekdays', 'Weekdays'),('weekends', 'Weekends'),('other','special_day')
+    )
+    trainer = forms.ChoiceField(choices=trainer_choices, widget=forms.RadioSelect(attrs={'class': 'inline', 'onclick': "myFunction(this.value)"}))
+    courses = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple(attrs={'class': 'inline'}))
+    batch_days = forms.ChoiceField(choices=day_choices, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    sname = forms.ModelMultipleChoiceField(queryset=Addmission.objects.all())
+    class Meta:
+        choices1 = (
+        ('linux', 'Linux'),('aws', 'AWS(Cloud)'),('python', 'Python'),('devops', 'DevOps'),('fullpython', 'FullStack(Python)'),('hadoop', 'HadoopAdmin'),
+        )
+        model = Batch
+        fields = '__all__'
+        widgets = {
+            'edate': forms.DateInput(
+                attrs={ 'style' : 'margin-right: 15.25em' , 'id':"edate" , 'name':"edate" , 'type':"date" , 'class':"form-check-label"}),
+            'batchid': forms.TextInput(
+                attrs={ 'id':"batchid" , 'name':"batchid" , 'value':"{{ form.batchid.value }}"}), 
+            'batchalias': forms.TextInput(
+                attrs={ 'id':"batchalias" ,'style' : 'margin-right: 15.25em' , 'name':"batchalias"}), 
+            'batch_time': forms.TimeInput(
+                attrs={'name':"batch_time" , 'id':"batch_time"}),
+            'special_day': forms.TextInput(
+                attrs={ 'placeholder':"SpecificDays" , 'style':'margin-right: 5.25em' , 'class':"form-check-label" , 'for':"other" , 'name':"special_day"}),  
+            'sname' : forms.Select(attrs={'class':"selectpicker" , 'multiple data-live-search':"true"}),   
+        }
