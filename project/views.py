@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import Enquiry, AddmissionForm, BatchForm
-from .models import Enq, Addmission, Batch
+from .forms import Enquiry, AddmissionForm, BatchForm, ModifyForm
+from .models import Enq, Addmission, Batch, Modify
 from django.http import HttpResponse, JsonResponse
 from django.utils.dateformat import DateFormat
 from django.utils.formats import get_format
@@ -68,6 +68,16 @@ def batch(request):
         if form.is_valid():
             form.save()
             thank = True
+            sname = []
+            print(type(sname))
+            sname.append(request.POST.get('sname',''))
+            print(sname)
+            posts1 = Addmission.objects.all()
+            for x in posts1:
+                ans = x.add_alias
+                print(ans)
+                if sname == ans:
+                    print(sname)
         else:
             print('wrong')
             print(form.errors)
@@ -78,21 +88,54 @@ def batch(request):
     return render(request, 'batch.html', context)
 
 def searchenq(request):
-
-    return render(request,'searchenquiry.html')
+    posts = Enq.objects.all()
+    if request.method == 'POST': 
+        searchenq = request.POST.get('browsers','')
+        print(searchenq)
+        posts = Enq.objects.filter(enqalias=searchenq)
+    return render(request,'searchenquiry.html',{'posts':posts})
 
 def searchaddmission(request):
-
-    return render(request,'searchaddmission.html')
+    posts = Addmission.objects.all()
+    if request.method == 'POST': 
+        searchadd = request.POST.get('browsers','')
+        print(searchadd)
+        posts = Addmission.objects.filter(add_alias=searchadd)
+    return render(request,'searchaddmission.html',{'posts':posts})
 
 def searchbatch(request):
+    posts = Batch.objects.all()
+    if request.method == 'POST': 
+        searchbatch = request.POST.get('browsers','')
+        print(searchbatch)
+        posts = Batch.objects.filter(batchalias=searchbatch)
+    return render(request,'searchbatch.html',{'posts':posts})
 
-    return render(request,'searchbatch.html')
-
+def Serach_Enq_Alias(request):
+    print("select student alias")
+    posts = Enq.objects.all()
+    if request.method == 'POST': 
+        add_alias = request.POST.get('browsers','')
+        ans = Enq.objects.filter(enqalias=add_alias)
+        for x in ans:
+            form = ModifyForm(initial={'enqalias':x.enqalias,'enqid':x.enqid,'fname':x.fname,'lname':x.lname,'email':x.email,
+            'phone':x.phone,'Address':x.Address})
+    return render(request,'modifyenquiry.html',{'posts':posts,'form':form}) 
 
 def modifyenq(request):
-
-    return render(request,'modifyenquiry.html')
+    thank = False
+    if request.method == 'POST':
+      form = EnquiryForm(request.POST)
+      if form.is_valid():
+        form.save()
+        thank = True
+      else:
+          print('wrong')
+          print(form.errors)
+    form = ModifyForm()      
+    posts = Enq.objects.all()
+    context = {'form':form,'posts':posts, 'thank': thank}
+    return render(request,'modifyenquiry.html',context)
 
 
 def modifyaddmission(request):

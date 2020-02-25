@@ -9,193 +9,55 @@
             <div class="well well-sm">
                 <form action="/searchaddmission/" method="post">{% csrf_token %}
                     <fieldset>
-                            <legend class="text-xs-center header">Search Admission</legend>
-
-                            <div class="form-group">
-                              <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
-                              <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
-                              <label style='margin-right: 22.25em' class="form-check-label">EnquiryAlias</label>
-                              <label style='margin-right: 2.25em' class="form-check-label">AdmissionID</label>
-                          </div>
-                          <br>
-
-                            <div class="form-group">
-                                <input id="fname" name="firstname" type="text" placeholder="First Name" class="form-control col-md-08">
-                            </div>
-
-                            <div class="form-group">
-                                    <input id="lname" name="lastname" type="text" placeholder="Last Name" class="form-control col-md-08">
-                            </div>
-        
-                            <div class="form-group">
-                                    <input id="email" name="email" type="text" placeholder="Email Address" class="form-control col-md-12">
-                            </div>
-    
-                            <div class="form-group">
-                                    <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control col-md-12">
-                            </div>
-    
-                            <div class="form-group">
-                                    <textarea class="form-control col-md-12" id="message" name="message" placeholder="Address" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <span style='margin-right: 6.25em' class = "label label-default">Admission Taken For: </span>
-                                    <input type="checkbox" class="form-check-input" id="linux" checked>
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="linux">Linux</label>
-                                    <input type="checkbox" class="form-check-input" id="linux">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
-                                    <input type="checkbox" class="form-check-input" id="python">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="python">Python</label>
-                                    <input type="checkbox" class="form-check-input" id="devops">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="devops">DevOps</label>
-                                    <input type="checkbox" class="form-check-input" id="fullpython">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
-                                    <input type="checkbox" class="form-check-input" id="hadoop">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
-                            </div>
-
-                            <div class="form-group">
-                                <span style='margin-right: 14.00em' class = "label label-default">Fees: </span>
-                                    <input type="text" class="form-check-input" id="tot-fees" name="fees" placeholder="Total Fess">
-                            </div>
-
-                            <div class="form-group">
-                                <br>  
-                                <span style='margin-right: 9.00em' class = "label label-default">Fees Structure: </span>
-                                      <input type="radio" class="form-check-input" id="one-install" name="fees" onclick="ShowHideDiv()">
-                                      <label style='margin-right: 5.25em' class="form-check-label" for="one-install">One Installment</label>
-                                      <input type="radio" class="form-check-input" id="two-install" name="fees" onclick="ShowHideDiv()">
-                                      <label style='margin-right: 5.25em' class="form-check-label" for="two-install">Two Installment</label>
-                                      <input type="radio" class="form-check-input" id="three-install" name="fees" onclick="ShowHideDiv()">
-                                      <label style='margin-right: 5.25em' class="form-check-label" for="three-install">Three Installment</label>
-                              </div>
-
-                              <table class="table formTable" style="display: none;" id="one">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col" class="col2">#</th>
-                                      <th scope="col" class="col2">Date</th>
-                                      <th scope="col" class="col2">Amount</th>
-                                      <th scope="col" class="col2">Paid/NotPaid</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                      <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                      <td class="col2">
-                                          <select  class="resizedTextbox">
-                                                  <option value="" disabled="disabled" selected="selected">Status</option>
-                                                  <option value="1">Paid</option>
-                                                  <option value="2">Not Paid</option>
-                                                  <option value="3">Discontinue</option>
-                                          </select>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            
-  
-                                <table class="table formTable" style="display: none;" id="two">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col" class="col2">#</th>
-                                        <th scope="col" class="col2">Date</th>
-                                        <th scope="col" class="col2">Amount</th>
-                                        <th scope="col" class="col2">Paid/NotPaid</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">1</th>
-                                        <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                        <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                        <td class="col2">
-                                            <select  class="resizedTextbox">
-                                                    <option value="" disabled="disabled" selected="selected">Status</option>
-                                                    <option value="1">Paid</option>
-                                                    <option value="2">Not Paid</option>
-                                                    <option value="3">Discontinue</option>
-                                            </select>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                          <th scope="row">2</th>
-                                          <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                          <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                          <td class="col2">
-                                              <select  class="resizedTextbox">
-                                                      <option value="" disabled="disabled" selected="selected">Status</option>
-                                                      <option value="1">Paid</option>
-                                                      <option value="2">Not Paid</option>
-                                                      <option value="3">Discontinue</option>
-                                              </select>
-                                          </td>
-                                        </tr>
-                                    </tbody>
-                                  </table>
-  
-                                  <table class="table formTable" style="display: none;" id="three">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col" class="col2">#</th>
-                                          <th scope="col" class="col2">Date</th>
-                                          <th scope="col" class="col2">Amount</th>
-                                          <th scope="col" class="col2">Paid/NotPaid</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <th scope="row">1</th>
-                                          <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                          <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                          <td class="col2">
-                                              <select  class="resizedTextbox">
-                                                      <option value="" disabled="disabled" selected="selected">Status</option>
-                                                      <option value="1">Paid</option>
-                                                      <option value="2">Not Paid</option>
-                                                      <option value="3">Discontinue</option>
-                                              </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                            <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                            <td class="col2">
-                                                <select  class="resizedTextbox">
-                                                        <option value="" disabled="disabled" selected="selected">Status</option>
-                                                        <option value="1">Paid</option>
-                                                        <option value="2">Not Paid</option>
-                                                        <option value="3">Discontinue</option>
-                                                </select>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                              <th scope="row">3</th>
-                                              <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                              <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                              <td class="col2">
-                                                  <select  class="resizedTextbox">
-                                                          <option value="" disabled="disabled" selected="selected">Status</option>
-                                                          <option value="1">Paid</option>
-                                                          <option value="2">Not Paid</option>
-                                                          <option value="3">Discontinue</option>
-                                                  </select>
-                                              </td>
-                                            </tr>
-                                      </tbody>
-                                    </table>
-    
-                              <div class="form-group">
-                                      <textarea class="form-control col-md-12" id="comments" name="comments" placeholder="Comments" rows="3"></textarea>
-                              </div>
-  
-                            <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                            </div>
+                        <legend class="text-xs-center header">Search Admission</legend>
+                        <input list="browsers" name="browsers" class = "form-control col-md-08 serach">
+                        <datalist id="browsers">
+                        {% for post in posts %} 
+                            <option value="{{ post.add_alias }}">
+                        {% endfor %} 
+                        </datalist>
+                        <br><br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                        <div>
+                        {% for i in posts %}
+                        Date : {{i.add_date}}<br><br>
+                        Enquiry ID : {{i.add_id}}<br><br>
+                        Enquiry Alias : {{i.add_alias}}<br><br>
+                        First Name : {{i.fname}}<br><br>
+                        Last Name : {{i.lname}}<br><br>
+                        Email ID : {{i.email}}<br><br>
+                        Phone Number : {{i.phone}}<br><br>
+                        Address : {{i.Address}}<br><br>
+                        Courses : {{i.courses}}<br><br>
+                        Tot_Fees : {{i.tot_fees}}<br><br>
+                        Pay Fees : {{i.pay_fees}}<br><br>
+                        {% if i.pay_fees == 'one_install' %}
+                            Install Date : {{i.one_install_date}}<br><br>
+                            Install Fees : {{i.one_install_fees}}<br><br>
+                            Status : {{i.status}}<br><br>
+                        {% elif i.pay_fees == 'two_install' %}
+                            First Install Date : {{i.two_install_date1}}<br><br>
+                            First Install Fees : {{i.two_install_fees1}}<br><br>
+                            First Install Status : {{i.status1}}<br><br>
+                            Second Install Date : {{i.two_install_date2}}<br><br>
+                            Second Install Fees : {{i.two_install_fees2}}<br><br>
+                            Second Install Status : {{i.status2}}<br><br>
+                        {% elif i.pay_fees == 'three_install' %}    
+                            First Install Date : {{i.three_install_date1}}<br><br>
+                            First Install Fees : {{i.three_install_fees1}}<br><br>
+                            First Install Status : {{i.status1}}<br><br>
+                            Second Install Date : {{i.three_install_date2}}<br><br>
+                            Second Install Fees : {{i.three_install_fees2}}<br><br>
+                            Second Install Status : {{i.status2}}<br><br>
+                            Third Install Date : {{i.three_install_date3}}<br><br>
+                            Third Install Fees : {{i.three_install_fees3}}<br><br>
+                            Third InstallStatus : {{i.status3}}<br><br>
+                        {% endif %}
+                        Comments : {{i.comments}}<br><br>
+                        {% endfor %}
+                    </div>    
                     </fieldset>
                 </form>
             </div>

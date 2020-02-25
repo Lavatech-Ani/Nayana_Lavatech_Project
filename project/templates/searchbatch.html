@@ -4,98 +4,44 @@
 
 {% block body %}
 <div class="main">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="well well-sm">
-        <form action="/searchbatch/" method="post">{% csrf_token %}
-          <fieldset>
-                            <legend class="text-xs-center header">Search Batch</legend>
-
-                            <div class="form-group">
-                              <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
-                              <input style='margin-right: 20.25em' id="edate" name="edate" type="date" class="form-check-label">
-                              <label style='margin-right: 25.25em' class="form-check-label">BatchAlias</label>
-                              <label style='margin-right: 2.25em' class="form-check-label">BatchID</label>
-                          </div>
-                          <br>
-
-                          <div class="form-group">  
-                            <span style='margin-right: 5.00em' class = "label label-default">Trainer Name: </span>
-                                  <input type="radio" class="form-check-input" id="trainer" name="trainer">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="one-install">Aniket</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="trainer">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="two-install">Yogita</label>
-                          </div>
-
-                          <div class="form-group">
-                            <span style='margin-right: 8.25em' class = "label label-default">Course: </span>
-                                <input type="checkbox" class="form-check-input" id="linux" checked>
-                                <label style='margin-right: 3.25em' class="form-check-label" for="linux">Linux</label>
-                                <input type="checkbox" class="form-check-input" id="linux">
-                                <label style='margin-right: 3.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
-                                <input type="checkbox" class="form-check-input" id="python">
-                                <label style='margin-right: 3.25em' class="form-check-label" for="python">Python</label>
-                                <input type="checkbox" class="form-check-input" id="devops">
-                                <label style='margin-right: 3.25em' class="form-check-label" for="devops">DevOps</label>
-                                <input type="checkbox" class="form-check-input" id="fullpython">
-                                <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
-                                <input type="checkbox" class="form-check-input" id="hadoop">
-                                <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
-                        </div>
-
-                        <div class="form-group">  
-                          <span style='margin-right: 5.00em' class = "label label-default">Batch Time: </span>
-                          <input type="time" name="btime">
-                        </div>
-
-                        <div class="form-group">
-                              <span style='margin-right: 9.00em' class = "label label-default">Days: </span>
-                                    <input type="radio" class="form-check-input" id="weekdays" name="days">
-                                    <label style='margin-right: 5.25em' class="form-check-label" for="weekdays">WeekDays</label>
-                                    <input type="radio" class="form-check-input" id="weekends" name="days">
-                                    <label style='margin-right: 5.25em' class="form-check-label" for="weekends">WeekEnds</label>
-                                    <input type="radio" class="form-check-input" id="other" name="days">
-                                    <input type="text" placeholder="SpecificDays" style='margin-right: 5.25em' class="form-check-label" for="other">
-                        </div>
-
-                        <div class="form-group">  
-                            <span style='margin-right: 5.00em' class = "label label-default">Student Name: </span>
-                            <button type="button" name="add" style='margin-right: 5.25em' class="form-check-label">Add</button>
-                            <input style='margin-right: 22.5em' type="text" name="sname" class="form-check-input" placeholder="--Select--">
-                          </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form action="/searchbatch/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Search Batch</legend>
+                        <input list="browsers" name="browsers" class = "form-control col-md-08 serach">
+                        <datalist id="browsers">
+                        {% for post in posts %} 
+                            <option value="{{ post.batchalias }}">
+                        {% endfor %} 
+                        </datalist>
                         <br><br>
-
-                        <table class="table table-sm">
-                          <thead>
-                            <tr>
-                              <th scope="col">No.</th>
-                              <th scope="col">Student Name</th>
-                              <th scope="col">Student Alias</th>
-                              <th scope="col">Contact Details</th>
-                              <th scope="col">Email-ID</th>
-                              <th scope="col">Fees Due</th>
-                              <th scope="col">Fees Due Date</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>  
-  
-                            <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                            </div>
-          </fieldset>
-        </form>
-      </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        </div>
+                        <div>
+                        {% for i in posts %}
+                        Date : {{i.edate}}<br><br>
+                        Enquiry ID : {{i.batchid}}<br><br>
+                        Enquiry Alias : {{i.batchalias}}<br><br>
+                        Trainer Name : {{i.trainer}}<br><br>
+                        Courses Name : {{i.courses}}<br><br>
+                        Batch Time : {{i.batch_time}}<br><br>
+                        Batch Days : {{i.batch_days}}<br><br>
+                            {% if i.batch_days == 'other' %}
+                            Special Day : {{i.special_day}}<br><br>
+                            Student Name : {{i.sname}}<br><br>
+                            {% else %}
+                            Student Name : {{i.sname}}<br><br>
+                            {% endif %}
+                        {% endfor %}
+                        </div>    
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>        
 
     

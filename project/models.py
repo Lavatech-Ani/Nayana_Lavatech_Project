@@ -17,6 +17,7 @@ class Enq(models.Model):
     courses = models.CharField(max_length=50, default=None)
     enquiry = models.CharField(max_length=70, default=None)
     reference_name = models.CharField(max_length=100, default=None,blank=True)
+    status = models.CharField(max_length=70, default=None)
     collagename = models.CharField(max_length=100, default=None,blank=True)
     stream = models.CharField(max_length=50, default=None,blank=True)
     year = models.CharField(max_length=50, default='0',blank=True)
@@ -100,3 +101,39 @@ class Batch(models.Model):
             last = str(field_name).split('.')[-1]
             value = getattr(self, last, None)
             yield (field_name, value)    
+
+class Modify(models.Model):
+    edate = models.CharField(max_length=100, default=None)
+    enqalias = models.CharField(max_length=50, default=None)
+    enqid = models.IntegerField(default=0)
+    fname = models.CharField(max_length=50, default=None)
+    lname = models.CharField(max_length=50, default=None)
+    email = models.CharField(max_length=50, default=None)
+    phone = models.IntegerField(default=0)
+    Address = models.CharField(max_length=5000)
+    courses = models.CharField(max_length=50, default=None)
+    enquiry = models.CharField(max_length=70, default=None)
+    reference_name = models.CharField(max_length=100, default=None,blank=True)
+    status = models.CharField(max_length=70, default=None)
+    collagename = models.CharField(max_length=100, default=None,blank=True)
+    stream = models.CharField(max_length=50, default=None,blank=True)
+    year = models.CharField(max_length=50, default='0',blank=True)
+    company = models.CharField(max_length=50, default=None,blank=True)
+    designation = models.CharField(max_length=50, default=None,blank=True)
+    year_exper = models.CharField(max_length=50, default=None,blank=True)
+    Preferred_day = models.CharField(max_length=50, default=None)
+    weekday_date = models.CharField(max_length=50, default=None,blank=True)
+    weekdays_time = models.CharField(max_length=50, default=None,blank=True)
+    weekend_date = models.CharField(max_length=50, default=None,blank=True)
+    weekend_time = models.CharField(max_length=50, default=None,blank=True)
+    comments = models.CharField(max_length=50, default=None)
+
+
+    def __str__(self):
+        return self.enqalias  
+
+    def __iter__(self):
+        for field_name in self._meta.get_fields():
+            last = str(field_name).split('.')[-1]
+            value = getattr(self, last, None)
+            yield (field_name, value)

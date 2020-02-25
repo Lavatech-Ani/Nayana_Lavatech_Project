@@ -12,6 +12,7 @@ urlpatterns = [
     path("searchenq/", views.searchenq, name='searchenq'),
     path("searchaddmission/", views.searchaddmission, name='searchaddmission'),
     path("searchbatch/", views.searchbatch, name='searchbatch'),
+    path("Serach_Enq_Alias/", views.Serach_Enq_Alias, name='Serach_Enq_Alias'),
     path("modifyenq/", views.modifyenq, name='modifyenq'),
     path("modifyaddmission/", views.modifyaddmission, name='modifyaddmission'),
     path("modifybatch/", views.modifybatch, name='modifybatch'),
