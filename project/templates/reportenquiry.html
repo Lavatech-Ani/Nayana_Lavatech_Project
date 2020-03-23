@@ -4,77 +4,56 @@
 
 {% block body %}
 <div class="main">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well well-sm">
-                    <form action="/reportenq/" method="post">{% csrf_token %}
-                        <fieldset>
-                            <legend class="text-xs-center header">Enquiry Report</legend>
-
-                            <div class="form-group">
-                              <span style='margin-right: 3.90em' class = "label label-default">Select Report Type: </span>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">All-Enquiries</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Today</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Yesterday</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Current-Week</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Current-Month</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="enq">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Not-Converted</label>
-                          </div>
-
-                          <div class="form-group">
-                                <span style='margin-right: 5em' class = "label label-default">Select Month: </span>
-                                <select>
-                                        <option value="" disabled="disabled" selected="selected">Please Select Month</option>
-                                        <option value="1">January</option>
-                                        <option value="2">Febuary</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                </select>
-                            </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form action="/reportenq/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Enquiry Report</legend>
                         <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                            <span style='margin-right: 3.90em' class = "label label-default">Select Report Type: </span>
+                            {% for radio in form.like %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 3.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
                         </div>
-
-
+                        <div class="form-group">
+                            <span style='margin-right: 5em' class = "label label-default">Select Month: </span>
+                            {{ form.select }}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                        </div>
                         <table class="table table-sm">
-                          <thead>
-                            <tr>
-                              <th scope="col">Enquiry-ID</th>
-                              <th scope="col">Enquiry-Name</th>
-                              <th scope="col">Enquiry-Alias</th>
-                              <th scope="col">Phone-No</th>
-                              <th scope="col">EMail-Address</th>
-                              <th scope="col">Course</th>
-                              <th scope="col">Preferred-Timing</th>
-                              <th scope="col">Admission-ID</th>
-                              <th scope="col">Enquiry-Source</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          </tbody>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Enquiry-ID</th>
+                                    <th scope="col">Enquiry-Name</th>
+                                    <th scope="col">Enquiry-Alias</th>
+                                    <th scope="col">Phone-No</th>
+                                    <th scope="col">EMail-Address</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Preferred-Timing</th>
+                                    <th scope="col">Enquiry-Source</th>
+                                </tr>
+                            </thead>
+                            {% for b1 in a1 %}
+                                {% for ans in b1 %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ans.enqid}}</td>
+                                        <td>{{ans.fname}} {{ans.lname}}</td>
+                                        <td>{{ans.enqalias}}</td>
+                                        <td>{{ans.phone}}</td>
+                                        <td>{{ans.email}}</td>
+                                        <td>{{ans.courses}}</td>
+                                        <td>{{ans.Preferred_day}}</td>
+                                        <td>{{ans.enquiry}}</td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                            {% endfor %}    
                         </table>  
-
                     </fieldset>
                 </form>
             </div>
@@ -85,13 +64,5 @@
     
 {% endblock %}
 {% block js%}
-<script>
-        
-{% if thank %}
-alert('Thanks for Registration. We will get back to you soon!');
-document.location = "/reportenq/";
-{% endif %}
-
-</script>
  
 {% endblock %} 

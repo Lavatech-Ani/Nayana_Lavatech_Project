@@ -23,6 +23,7 @@
                 <form action="/modifyaddmission/" method="post">{% csrf_token %}
                     <fieldset>
                         <legend class="text-xs-center header">Modify Admission</legend>
+                            {{ form.E_id}}
                             <div class="form-group">
                             <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
                             {{ form.add_date }}

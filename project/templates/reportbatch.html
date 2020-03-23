@@ -7,23 +7,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form action="/reportbatch/" method="post">{% csrf_token %}
+                <form action="/reportbatch/" method="post" novalidate>{% csrf_token %}
                     <fieldset>
                         <legend class="text-xs-center header">Batch Report</legend>
                             <div class="form-group">
                               <span style='margin-right: 14.90em' class = "label label-default">Select Trainer Name: </span>
-                                  <input type="radio" class="form-check-input" id="trainer" name="trainer">
-                                  <label style='margin-right: 5.25em' class="form-check-label" for="trainer">Aniket</label>
-                                  <input type="radio" class="form-check-input" id="trainer" name="trainer">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="trainer">Yogita</label>
+                                  {% for radio in form.trainer %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 3.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
                           </div>
 
                           <div class="form-group">  
                             <span style='margin-right: 21.00em' class = "label label-default">Status: </span>
-                                  <input type="radio" class="form-check-input" id="status" name="status">
-                                  <label style='margin-right: 4em' class="form-check-label" for="one-install">On-Going</label>
-                                  <input type="radio" class="form-check-input" id="status" name="status">
-                                  <label style='margin-right: 3.25em' class="form-check-label" for="two-install">Completed</label>
+                                {% for radio in form.select %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 3.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
                           </div>
 
                         <div class="form-group">
@@ -45,12 +45,18 @@
                             </tr>
                           </thead>
                           <tbody>
+                          {% for i in record %}
                             <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
+                              <th scope="row">{{ i.batchid }}</th>
+                              <td>{{ i.batchalias }}</td>
+                              <td>{{ i.batch_time }}</td>
+                              <td>{{ i.batch_day }}</td>
+                              <td><table>{% for x in i.Addmission.all %}<tr><td>{{x.fname}} {{x.lname}}</td></tr>{% endfor %}</table></td>
+                              <td><table>{% for x in i.Addmission.all %}<tr><td>{{x.add_alias}}</td></tr>{% endfor %}</table></td>
+                              <td><table>{% for x in i.Addmission.all %}<tr><td>{{x.phone}}</td></tr>{% endfor %}</table></td>
+                              <td><table>{% for x in i.Addmission.all %}<tr><td>{{x.email}}</td></tr>{% endfor %}</table></td>
+                            </tr>  
+                            {% endfor %}
                           </tbody>
                         </table>  
                     </fieldset>

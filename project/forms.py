@@ -36,7 +36,7 @@ class Enquiry(forms.ModelForm):
             'enqalias': forms.TextInput(
                 attrs={ 'id' : "enqalias" , 'style' : 'margin-right: 15.25em' , 'name' : "enqalias"}), 
             'enqid': forms.TextInput(
-                attrs={'id' : "enqid" , 'name':"enqid" , 'value':'{{ form.enqid.value }}'}), 
+                attrs={'id' : "enqid" , 'name':"enqid" , 'value':'{{ form.enqid.value }}', 'style' : 'margin-right: 15.25em' }), 
             'fname': forms.TextInput(
                 attrs={ 'class':"form-control col-md-08 fname" , 'id':"fname" , 'placeholder':"First Name"}),
             'lname': forms.TextInput(
@@ -60,11 +60,11 @@ class Enquiry(forms.ModelForm):
             'year_exper': forms.TextInput(
                 attrs={ 'class' : "form-control" , 'id' : "years_of_exper" , 'placeholder' : "No. of Years of Experience"}), 
             'weekday_date': forms.DateInput(
-                attrs={ 'style' : 'margin-right: 20.25em' , 'type': 'date' , 'id' : "wddate" , 'class' : "form-check-label"}), 
+                attrs={ 'style' : 'margin-right: 15.25em' , 'type': 'date' , 'id' : "wddate" , 'class' : "form-check-label"}), 
             'weekdays_time': forms.TextInput(
                 attrs={ 'class' : "form-control weekdaystime" , 'id' : "preweekdays" , 'placeholder' : "Preferred Time For Weekdays"}), 
             'weekend_date': forms.DateInput(
-                attrs={ 'style' : 'margin-right: 20.25em' , 'type': 'date' , 'id' : "wedate" , 'class' : "form-check-label"}), 
+                attrs={ 'style' : 'margin-right: 15.25em' , 'type': 'date' , 'id' : "wedate" , 'class' : "form-check-label"}), 
             'weekend_time': forms.TextInput(
                 attrs={ 'class' : "form-control weekendtime" , 'id' : "preweekend" , 'placeholder' : "Preferred Time For Weekend"}),  
             'comments' : forms.Textarea(
@@ -94,11 +94,11 @@ class AddmissionForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'add_date': forms.DateInput(
-                attrs={ 'style':'margin-right: 20.25em' , 'id':"add_date" , 'name':"add_date" , 'type':"date" , 'class':"form-check-label"}),
+                attrs={'style' : 'margin-right: 15.25em','id':"add_date" , 'name':"add_date" , 'type':"date"}),
             'add_alias': forms.TextInput(
-                attrs={ 'id':"enqalias" , 'name':"enqalias"}), 
+                attrs={ 'id':"enqalias" , 'name':"enqalias",'style' : 'margin-right: 15.25em'}), 
             'add_id': forms.TextInput(
-                attrs={ 'id':"add_id" , 'name':"add_id"}), 
+                attrs={ 'id':"add_id" , 'name':"add_id",'style' : 'margin-right: 15.25em'}), 
             'fname': forms.TextInput(
                 attrs={ 'id':"fname" , 'name':"fname", 'placeholder':"First Name" , 'class':"form-control col-md-08"}),
             'lname': forms.TextInput(
@@ -110,7 +110,7 @@ class AddmissionForm(forms.ModelForm):
             'Address': forms.TextInput(
                 attrs={ 'class':"form-control col-md-12" , 'id':"Address" , 'name':"Address" , 'placeholder':"Address" , 'rows':"3"}), 
             'tot_fees': forms.NumberInput(
-                attrs={ 'class':"form-check-input" , 'id':"tot_fees" , 'name':"tot_fees" , 'placeholder':"Total Fess"}), 
+                attrs={ 'id':"tot_fees" , 'name':"tot_fees" , 'placeholder':"Total Fess"}), 
             'one_install_date': forms.DateInput(
                 attrs={ 'id':"one_install_date" , 'name':"one_install_date", 'type':"date" , 'class':"resizedTextbox"}), 
             'one_install_fees': forms.TextInput(
@@ -155,7 +155,7 @@ class BatchForm(forms.ModelForm):
     )
     trainer = forms.ChoiceField(choices=trainer_choices, widget=forms.RadioSelect(attrs={'class': 'inline', 'onclick': "myFunction(this.value)"}))
     courses = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple(attrs={'class': 'inline'}))
-    batch_days = forms.ChoiceField(choices=day_choices, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    batch_day = forms.ChoiceField(choices=day_choices, widget=forms.RadioSelect(attrs={'class': 'inline'}))
     sname = forms.ModelMultipleChoiceField(queryset=Addmission.objects.all())
     class Meta:
         choices1 = (
@@ -178,3 +178,38 @@ class BatchForm(forms.ModelForm):
                 attrs={'class':"selectpicker" , 'multiple data-live-search':"true"}), 
         }
 
+class searchbatchForm(forms.Form):
+    CHOICES=[('modify','Modify Batch'),('delete','Delete Batch')]    
+    like1 = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': 'inline'}))       
+
+class reportenqForm(forms.Form):
+    CHOICES=[('all_enq','All-Enquiries'),('today','Today'),('yesterday','Yesterday'),('current_week','Current_Week'),
+         ('current_month','Current_Month'),('not_converted','not_converted')]
+    select = (
+        ('01', 'January'),('02', 'Febuary'),('03', 'March'),('04', 'April'),('05', 'May'),('06', 'June'),('07', 'July'),('08', 'August'),
+        ('09', 'September'),('10', 'October'),('11', 'November'),('12', 'December'),
+        )     
+
+    like = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    select = forms.ChoiceField(choices = select)
+    
+class reportbatchForm(forms.Form):
+    CHOICES=[('trainer_aniket','Aniket'),('trainer_yogita','Yogita')]
+    select = [('complete', 'Completed'),('on_going', 'On-Going')]
+        
+    trainer = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': 'inline'}))
+    select = forms.ChoiceField(choices=select, widget=forms.RadioSelect(attrs={'class': 'inline'})) 
+
+class reportcontactForm(forms.Form):
+    select = (
+    ('first_name', 'First Name'),('last_name', 'Last Name'),('student_alias', 'Student Alias'),
+    )
+ 
+    select = forms.ChoiceField(choices=select, widget=forms.RadioSelect(attrs={'class': 'inline' , 'onclick' : "ShowHideDiv()"})) 
+    fname = forms.CharField(max_length=100, required=False, widget=forms.TextInput(
+        attrs={'style':'margin-right: 3.25em', 'name':"fname", 'placeholder':"Student First Name", 'class':"resizedTextbox"}))
+    lname = forms.CharField(max_length=100, required=False, widget=forms.TextInput(
+        attrs={'style':'margin-right: 3.25em', 'name':"lname", 'placeholder':"Student Last Name", 'class':"resizedTextbox"}))  
+    alias = forms.CharField(max_length=100, required=False, widget=forms.TextInput(
+        attrs={'style':'margin-right: 3.25em', 'name':"alias", 'placeholder':"Enquiry Alias Name", 'class':"resizedTextbox"}))    
+    

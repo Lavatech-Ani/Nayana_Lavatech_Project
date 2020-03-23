@@ -1,58 +1,50 @@
 {% extends 'index.html' %}
-{% load crispy_forms_tags %}
-{% block title %} Addmission Form {% endblock %}
-
+{% block title %} Modify Admission {% endblock %}
 {% block css %} {% endblock %}
+
 {% block body %}
 <div class="main">
     <div class="row">
         <div class="col-md-12">
-            <div class="well well-sm"> 
-                <form action="/StudentAlias/" method="post" novalidate>{% csrf_token %}
-                    <legend class="text-xs-center header">Select Student Alias</legend>
+            <div class="well well-sm">
+                <form action="/Serach_Addmission_Alias/" method="post" novalidate>{% csrf_token %}
+                    <legend class="text-xs-center header">Select Student Alias Which You Want To Modify</legend>
                     <input list="browsers" name="browsers">
                     <datalist id="browsers">
                         {% for post in posts %} 
-                            <option value="{{ post.enqalias }}">
+                            <option value="{{ post.add_alias }}">
                         {% endfor %} 
                     </datalist>
                     <br><br>
-                    
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="doDa()">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                     </div>
                 </form> 
-                <form action="/addmission/" method="post" novalidate>{% csrf_token %}
-                    <fieldset id="myDIV">
-                        <legend class="text-xs-center header">Admission</legend>
-                        {{ form.E_id}}
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <span class = "label label-default">Date: </span>
-                                {{ form.add_date|as_crispy_field }}
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-check-label">AdmissionID:{{ form.add_id|as_crispy_field }}</label>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-check-label">EnquiryAlias :{{ form.add_alias|as_crispy_field }}</label>
-                            </div>
-                        </div>
-                        <br>
+                <form action="/modifyaddmission/" method="post">{% csrf_token %}
+                    <fieldset>
+                        <legend class="text-xs-center header">Modify Admission</legend>
+                            <div class="form-group">
+                            <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                            {{ form.add_date }}
+                            <label id="add_id" style='margin-right: 2.25em' class="form-check-label">AdmissionID:
+                            {{ form.add_id }}
+                            <label id="enqalias" style='margin-left: 10.25em' class="form-check-label">EnquiryAlias :</label>
+                            {{ form.add_alias }}
+                        </div><br>
                         <div class="form-group">
-                            {{ form.fname|as_crispy_field }}
+                            {{ form.fname }}
                         </div>
                         <div class="form-group">
-                           {{ form.lname|as_crispy_field }}
+                           {{ form.lname }}
                         </div>
                         <div class="form-group">
-                            {{ form.email|as_crispy_field }}
+                            {{ form.email }}
                         </div>
                         <div class="form-group">
-                            {{ form.phone|as_crispy_field }}
+                            {{ form.phone }}
                         </div>
                         <div class="form-group">
-                            {{ form.Address|as_crispy_field }}
+                            {{ form.Address }}
                         </div>
                         <div class="form-group">
                             <span style='margin-right: 6.25em' class = "label label-default">Admission Taken For: </span>
@@ -62,7 +54,8 @@
                             {% endfor %}
                         </div>
                         <div class="form-group">
-                            {{ form.tot_fees|as_crispy_field }}
+                            <span style='margin-right: 14.00em' class = "label label-default">Fees: </span>
+                            {{ form.tot_fees }}
                         </div>
                         <div class="form-group"><br>  
                             <span style='margin-right: 9.00em' class = "label label-default">Fees Structure: </span>
@@ -83,9 +76,11 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td class="col3" scope="col">{{ form.one_install_date|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.one_install_fees|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.one_install_date }}</td>
+                                    <td class="col2">{{ form.one_install_fees }}</td>
+                                    <td class="col2">
+                                        {{ form.status }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -101,15 +96,19 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td class="col3" scope="col">{{ form.two_install_date1|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.two_install_fees1|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status1|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.two_install_date1 }}</td>
+                                    <td class="col2">{{ form.two_install_fees1 }}</td>
+                                    <td class="col2">
+                                        {{ form.status1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td class="col3" scope="col">{{ form.two_install_date2|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.two_install_fees2|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status2|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.two_install_date2 }}</td>
+                                    <td class="col2">{{ form.two_install_fees2 }}</td>
+                                    <td class="col2">
+                                        {{ form.status2 }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -125,31 +124,37 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td class="col3" scope="col">{{ form.three_install_date1|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.three_install_fees1|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status1|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.three_install_date1 }}</td>
+                                    <td class="col2">{{ form.three_install_fees1 }}</td>
+                                    <td class="col2">
+                                        {{ form.status1 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td class="col3" scope="col">{{ form.three_install_date2|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.three_install_fees2|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status2|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.three_install_date2 }}</td>
+                                    <td class="col2">{{ form.three_install_fees2 }}</td>
+                                    <td class="col2">
+                                        {{ form.status2 }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
-                                    <td class="col3" scope="col">{{ form.three_install_date3|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.three_install_fees3|as_crispy_field }}</td>
-                                    <td class="col3">{{ form.status3|as_crispy_field }}</td>
+                                    <td class="col2" scope="col">{{ form.three_install_date3 }}</td>
+                                    <td class="col2">{{ form.three_install_fees3 }}</td>
+                                    <td class="col2">
+                                        {{ form.status3 }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="form-group">
-                            {{ form.comments|as_crispy_field }}
+                            {{ form.comments }}
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                         </div>
-                    </fieldset> 
+                    </fieldset>
                 </form>
             </div>
         </div>
@@ -162,6 +167,7 @@
 <script>
 console.log('working');
 console.log('clicked');
+
 
 function doDa()
 {
@@ -211,13 +217,12 @@ function ShowHideDiv() {
     
     }
       
+
 {% if thank %}
 alert('Thanks for Registration. We will get back to you soon!');
-document.location = "/addmission/";
+document.location = "/modifyaddmission/";
 {% endif %}
-</script>    
+
+</script>
+ 
 {% endblock %} 
-
-</body>
-
-</html>

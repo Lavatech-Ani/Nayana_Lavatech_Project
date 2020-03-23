@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load crispy_forms_tags %}
 {% block title %} Enquiry Form {% endblock %}
 {% block css %}{% endblock %}
 
@@ -11,29 +12,33 @@
                 {% csrf_token %}
                     <fieldset>
                         <legend class="text-xs-center header">Enquiry</legend>
-                        <div class="form-group">
-                            <span style='margin-right: 1.25em' class = "label label-default">Date: </span>
-                            {{ form.edate }}
-                            <label style='margin-right: 1.25em' class="form-check-label">EnquiryAlias: {{ form.enqalias }} </label>
-                             
-                            <label style='margin-right: 1.25em' class="form-check-label">  EnquiryID: {{ form.enqid }} </label>
-                        
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <span style='margin-right: 1.25em' class = "label label-default">Date: </span>
+                                {{ form.edate|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label style='margin-right: 1.25em' class="form-check-label">  EnquiryID: {{ form.enqid|as_crispy_field }} </label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label style='margin-right: 1.25em' class="form-check-label">EnquiryAlias: {{ form.enqalias|as_crispy_field }} </label>
+                            </div>
                         </div>
                         <br>
                         <div class="form-group">
-                            {{ form.fname }}
+                            {{ form.fname|as_crispy_field }}
                         </div>
                         <div class="form-group">
-                           {{ form.lname }}
+                           {{ form.lname|as_crispy_field }}
                         </div>
                         <div class="form-group">
-                            {{ form.email }}
+                            {{ form.email|as_crispy_field }}
                         </div>
                         <div class="form-group">
-                            {{ form.phone }}
+                            {{ form.phone|as_crispy_field }}
                         </div>
                         <div class="form-group">
-                            {{ form.Address }}
+                            {{ form.Address|as_crispy_field }}
                         </div>
                         <div class="form-group">
                             <span style='margin-right: 6.25em' class = "label label-default">Courses Interested: </span>
@@ -54,7 +59,7 @@
                                 <legend class="col-md-2 col-form-label pt-0">Reference Name</legend>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        {{ form.reference_name }}
+                                        {{ form.reference_name|as_crispy_field }}
                                     </div>
                                 </div>
                             </div>
@@ -71,10 +76,10 @@
                                 <legend class="col-md-3 col-form-label pt-0">Student Details</legend>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        {{ form.collagename }}
+                                        {{ form.collagename|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form.stream }}
+                                        {{ form.stream|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
                                         <span style='margin-right: 12.00em' class = "label label-default">Year: </span>
@@ -91,13 +96,13 @@
                                 <legend class="col-md-3 col-form-label pt-0">Employee Details</legend>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        {{ form.company }}
+                                        {{ form.company|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form.designation }}
+                                        {{ form.designation|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form.year_exper }}
+                                        {{ form.year_exper|as_crispy_field }}
                                     </div>
                                 </div>
                             </div>
@@ -114,10 +119,10 @@
                                 <legend class="col-md-2 col-form-label pt-0">Preferred Date & Time</legend>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        {{ form.weekday_date }}
+                                        {{ form.weekday_date|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form.weekdays_time }}
+                                        {{ form.weekdays_time|as_crispy_field }}
                                     </div>
                                 </div>
                             </div>
@@ -127,17 +132,17 @@
                                 <legend class="col-md-2 col-form-label pt-0">Preferred Date & Time</legend>
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        {{ form.weekend_date }}
+                                        {{ form.weekend_date|as_crispy_field }}
                                     </div>
                                     <div class="form-group">
-                                        {{ form.weekend_time }}
+                                        {{ form.weekend_time|as_crispy_field }}
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
                         <br>
                         <div class="form-group">
-                            {{ form.comments }}
+                            {{ form.comments|as_crispy_field }}
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-lg">Submit</button>

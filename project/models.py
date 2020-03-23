@@ -42,6 +42,11 @@ class Enq(models.Model):
             yield (field_name, value)
 
 class Addmission(models.Model):
+    E_id = models.OneToOneField(
+        Enq,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
     add_date = models.CharField(max_length=100, default=None)
     add_alias = models.CharField(max_length=50, default=None)
     add_id = models.IntegerField(default=0)
@@ -82,15 +87,17 @@ class Addmission(models.Model):
             yield (field_name, value)    
 
 class Batch(models.Model):
+    Addmission = models.ManyToManyField(Addmission)
     edate = models.CharField(max_length=100, default=None)
     batchid = models.IntegerField(default=0)
     batchalias = models.CharField(max_length=50, default=None)
     trainer = models.CharField(max_length=50)
     courses = models.CharField(max_length=50, default=None)
     batch_time = models.CharField(max_length=50, default=None)
-    batch_days = models.CharField(max_length=50, default=None)
+    batch_day = models.CharField(max_length=50, default=None)
     special_day = models.CharField(max_length=50, default=None,blank=True)
     sname = models.CharField(max_length=1000, default=None)
+    complete = models.BooleanField(default=False)
     
 
     def __str__(self):

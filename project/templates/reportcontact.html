@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-{% block title %} Contact Report {% endblock %}
+{% block title %} Contact Report {% endblock %} 
 {% block css %} {% endblock %}
 
 {% block body %}
@@ -7,24 +7,25 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form action="/reportcontact/" method="post">{% csrf_token %}
+                <form action="/reportcontact/" method="post" novalidate>{% csrf_token %}
                     <fieldset>
                         <legend class="text-xs-center header">Contact Report</legend>
-
-                          <div class="form-group">  
+                        <div class="form-group">  
                             <span style='margin-right: 5.00em' class = "label label-default">Select Search Option: </span>
-                                  <input type="radio" class="form-check-input" id="option" name="option">
-                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student First Name">
-                                  <input type="radio" class="form-check-input" id="option" name="option">
-                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student Last Name">
-                                  <input type="radio" class="form-check-input" id="option" name="option">
-                                  <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Enquiry Alias">
-                          </div>
-
-                        <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                            {{ form.select }}
                         </div>
-
+                        <fieldset class="form-group" id="fname" style="display: none">
+                            {{ form.fname }}
+                        </fieldset> 
+                        <fieldset class="form-group" id="lname" style="display: none">
+                            {{ form.lname }}
+                        </fieldset>
+                        <fieldset class="form-group" id="alias" style="display: none">
+                            {{ form.alias }}
+                        </fieldset>                  
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                        </div>
                         <table class="table table-sm">
                           <thead>
                             <tr>
@@ -36,15 +37,24 @@
                               <th scope="col">Course Name</th>
                               <th scope="col">Batch Time</th>
                               <th scope="col">Batch Days</th>
+                              <th scope="col">Batch Alias</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th scope="row"></th>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
+                            {% for i in ans %}
+                              <tr>
+                                <th scope="row">{{ i.fname }} {{ i.lname }}</th>
+                                <td>{{ i.enqalias }}</td>
+                                <td>{% for x in ans1 %}{{ x.add_id }}</td>
+                                <td>{{ i.phone }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.courses }}</td>
+                                <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batch_time }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
+                                <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batch_day }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
+                                <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batchalias }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
+                              </tr>        
+                            {% endfor %}
+                          {% endfor %}  
                           </tbody>
                         </table>      
                     </fieldset>
@@ -57,6 +67,20 @@
 {% endblock %}
 {% block js%}
 <script>
+function ShowHideDiv() {
+        var select_fname = document.getElementById("id_select_0");
+        var select_lname = document.getElementById("id_select_1");
+        var select_alias = document.getElementById("id_select_2");
+
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var alias = document.getElementById("alias");
+
+        fname.style.display = select_fname.checked ? "block" : "none";
+        lname.style.display = select_lname.checked ? "block" : "none";
+        alias.style.display = select_alias.checked ? "block" : "none";
+    
+    }
 {% if thank %}
 alert('Thanks for Registration. We will get back to you soon!');
 document.location = "/reportcontact/";
