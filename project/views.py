@@ -439,7 +439,6 @@ def reportbatch(request):
 
 
 def reportcontact(request):
-    thank = False
     if request.method == 'POST':
         form = reportcontactForm(request.POST)
         if form.is_valid():
@@ -449,30 +448,24 @@ def reportcontact(request):
             b2=cd['alias']
             if b != '':
                 ans=Enq.objects.filter(fname=b)
-                ans1=Addmission.objects.filter(fname=b)
-                for i in ans1:
-                    xyz = i.add_id
-                    print(xyz) 
+                ans1=Addmission.objects.filter(fname=b) 
                 ans2=Batch.objects.all()
                 context = {'form':form, 'ans': ans, 'ans1':ans1,'ans2':ans2}
                 return render(request,'reportcontact.html',context)
-                for field in Batch.objects.all():
-                    ans3=field.Addmission.all()
-                    for x in ans1:
-                        for i in ans3:
-                            if i == x:
-                                print(i)  
-                                print(field.batch_time) 
-                                print(field.batch_day) 
-                                print(field.special_day) 
-                                   
             elif b1 != '':    
                 ans=Enq.objects.filter(lname=b1)
-                print(ans)
+                ans1=Addmission.objects.filter(lname=b1)
+                ans2=Batch.objects.all()
+                context = {'form':form, 'ans': ans, 'ans1':ans1,'ans2':ans2}
+                return render(request,'reportcontact.html',context) 
             elif b2 !='':    
+                value = b2[2:]
+                value = "A-"+value
                 ans=Enq.objects.filter(enqalias=b2)
-                print(ans)
-            
+                ans1=Addmission.objects.filter(add_alias=value)
+                ans2=Batch.objects.all()
+                context = {'form':form, 'ans': ans, 'ans1':ans1,'ans2':ans2}
+                return render(request,'reportcontact.html',context)
         else:
             print('#######____ERROR_____##########')
             print(form.errors)
