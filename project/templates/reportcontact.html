@@ -45,15 +45,17 @@
                               <tr>
                                 <th scope="row">{{ i.fname }} {{ i.lname }}</th>
                                 <td>{{ i.enqalias }}</td>
-                                <td>{% for x in ans1 %}{{ x.add_id }}</td>
+                                <td>{% for x in ans1 %}{% if i.enqid == x.add_id %}{{ x.add_id }}</td>
                                 <td>{{ i.phone }}</td>
                                 <td>{{ i.email }}</td>
                                 <td>{{ i.courses }}</td>
+                                
                                 <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batch_time }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
                                 <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batch_day }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
                                 <td><table>{% for y in ans2 %}{% for z in y.Addmission.all %}{% if x == z %}<tr><td>{{ y.batchalias }}</td></tr>{% endif %}{% endfor %}{% endfor %}</table></td>
-                              </tr>        
-                            {% endfor %}
+                              </tr> 
+                              {% endif%}
+                              {% endfor %}        
                           {% endfor %}  
                           </tbody>
                         </table>      

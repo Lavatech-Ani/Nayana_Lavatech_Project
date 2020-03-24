@@ -450,8 +450,12 @@ def reportcontact(request):
             if b != '':
                 ans=Enq.objects.filter(fname=b)
                 ans1=Addmission.objects.filter(fname=b)
+                for i in ans1:
+                    xyz = i.add_id
+                    print(xyz) 
                 ans2=Batch.objects.all()
                 context = {'form':form, 'ans': ans, 'ans1':ans1,'ans2':ans2}
+                return render(request,'reportcontact.html',context)
                 for field in Batch.objects.all():
                     ans3=field.Addmission.all()
                     for x in ans1:
@@ -473,7 +477,8 @@ def reportcontact(request):
             print('#######____ERROR_____##########')
             print(form.errors)
     form = reportcontactForm()      
-    return render(request,'reportcontact.html',context,{'form':form})
+    context = {'form':form}
+    return render(request,'reportcontact.html',context)
 
 
 def feesnew(request):
