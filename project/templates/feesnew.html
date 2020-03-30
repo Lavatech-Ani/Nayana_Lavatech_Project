@@ -7,54 +7,71 @@
     <div class="row">
             <div class="col-md-12">
                 <div class="well well-sm">
-                    <form action="/feesnew/" method="post">{% csrf_token %}
+                    <form action="/feesnewserach/" method="post" novalidate>{% csrf_token %}
                         <fieldset>
                             <legend class="text-xs-center header">New Fees Entry</legend>
-
                             <div class="form-group">  
-                                <span style='margin-right: 5.00em' class = "label label-default">Select Search Option: </span>
-                                      <input type="radio" class="form-check-input" id="option" name="option">
-                                      <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student First Name">
-                                      <input type="radio" class="form-check-input" id="option" name="option">
-                                      <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Student Last Name">
-                                      <input type="radio" class="form-check-input" id="option" name="option">
-                                      <input type="text" style='margin-right: 3.25em' class="form-check-label" for="option" placeholder="Enquiry Alias">
-                              </div>
-    
+                            <span style='margin-right: 5.00em' class = "label label-default">Select Search Option: </span>
+                            {{ form.select }}
+                        </div>
+                        <fieldset class="form-group" id="fname" style="display: none">
+                            {{ form.fname }}
+                        </fieldset> 
+                        <fieldset class="form-group" id="lname" style="display: none">
+                            {{ form.lname }}
+                        </fieldset>
+                        <fieldset class="form-group" id="alias" style="display: none">
+                            {{ form.alias }}
+                        </fieldset>  
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        </div>    
+                    </form>        
+                    <form action="/feesnew/" method="post" novalidate>{% csrf_token %}
+                         {{ form1.E_id}}
                             <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-lg">Search</button>
-                            </div>    
-
-                            <div class="form-group">
+                            <span style='margin-right: 1.25.00em' class = "label label-default">Date: </span>
+                            {{ form1.add_date }}
+                            <label id="add_id" style='margin-right: 2.25em' class="form-check-label">AdmissionID:
+                            {{ form1.add_id }}
+                            <label id="enqalias" style='margin-left: 10.25em' class="form-check-label">EnquiryAlias :</label>
+                            {{ form1.add_alias }}
+                        </div><br>
+                        <div class="form-group">
+                            {{ form1.fname }}
+                        </div>
+                        <div class="form-group">
+                           {{ form1.lname }}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.email }}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.phone }}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.Address }}
+                        </div>
+                        <div class="form-group">
                                 <span style='margin-right: 6.25em' class = "label label-default">Admission Taken For: </span>
-                                    <input type="checkbox" class="form-check-input" id="linux" checked>
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="linux">Linux</label>
-                                    <input type="checkbox" class="form-check-input" id="linux">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="aws">AWS(Cloud)</label>
-                                    <input type="checkbox" class="form-check-input" id="python">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="python">Python</label>
-                                    <input type="checkbox" class="form-check-input" id="devops">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="devops">DevOps</label>
-                                    <input type="checkbox" class="form-check-input" id="fullpython">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="fullpython">FullStack(Python)</label>
-                                    <input type="checkbox" class="form-check-input" id="hadoop">
-                                    <label style='margin-right: 2.25em' class="form-check-label" for="hadoop">HadoopAdmin</label>
+                                    {% for checkbox in form1.courses %}
+                                {{ checkbox.tag }}
+                                <label style='margin-right: 2.25em' >{{ checkbox.choice_label }}</label>
+                            {% endfor %}
                             </div>
 
                             <div class="form-group">
                                 <span style='margin-right: 14.00em' class = "label label-default">Fees: </span>
-                                    <input type="text" class="form-check-input" id="tot-fees" name="fees" placeholder="Total Fess">
+                                {{ form1.tot_fees }}
                             </div>
 
                             <div class="form-group">
                               <br>  
                               <span style='margin-right: 9.00em' class = "label label-default">Fees Structure: </span>
-                                    <input type="radio" class="form-check-input" id="one-install" name="fees" onclick="ShowHideDiv()">
-                                    <label style='margin-right: 5.25em' class="form-check-label" for="one-install">One Installment</label>
-                                    <input type="radio" class="form-check-input" id="two-install" name="fees" onclick="ShowHideDiv()">
-                                    <label style='margin-right: 5.25em' class="form-check-label" for="two-install">Two Installment</label>
-                                    <input type="radio" class="form-check-input" id="three-install" name="fees" onclick="ShowHideDiv()">
-                                    <label style='margin-right: 5.25em' class="form-check-label" for="three-install">Three Installment</label>
+                                    {% for radio in form1.pay_fees %}
+                                {{ radio.tag }} 
+                                <label style='margin-right: 2.25em'>{{ radio.choice_label }}</label>
+                            {% endfor %}
                             </div>
 
                           
@@ -70,16 +87,9 @@
                                 <tbody>
                                   <tr>
                                     <th scope="row">1</th>
-                                    <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                    <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                    <td class="col2">
-                                        <select  class="resizedTextbox">
-                                                <option value="" disabled="disabled" selected="selected">Status</option>
-                                                <option value="1">Paid</option>
-                                                <option value="2">Not Paid</option>
-                                                <option value="3">Discontinue</option>
-                                        </select>
-                                    </td>
+                                    <td class="col3" scope="col">{{ form1.one_install_date }}</td>
+                                    <td class="col3">{{ form1.one_install_fees }}</td>
+                                    <td class="col3">{{ form1.status }}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -97,29 +107,15 @@
                                   <tbody>
                                     <tr>
                                       <th scope="row">1</th>
-                                      <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                      <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                      <td class="col2">
-                                          <select  class="resizedTextbox">
-                                                  <option value="" disabled="disabled" selected="selected">Status</option>
-                                                  <option value="1">Paid</option>
-                                                  <option value="2">Not Paid</option>
-                                                  <option value="3">Discontinue</option>
-                                          </select>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                        <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                        <td class="col2">
-                                            <select  class="resizedTextbox">
-                                                    <option value="" disabled="disabled" selected="selected">Status</option>
-                                                    <option value="1">Paid</option>
-                                                    <option value="2">Not Paid</option>
-                                                    <option value="3">Discontinue</option>
-                                            </select>
-                                        </td>
+                                    <td class="col3" scope="col">{{ form1.two_install_date1 }}</td>
+                                    <td class="col3">{{ form1.two_install_fees1 }}</td>
+                                    <td class="col3">{{ form1.status1 }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td class="col3" scope="col">{{ form1.two_install_date2 }}</td>
+                                    <td class="col3">{{ form1.two_install_fees2 }}</td>
+                                    <td class="col3">{{ form1.status2 }}</td>
                                       </tr>
                                   </tbody>
                                 </table>
@@ -135,49 +131,28 @@
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <th scope="row">1</th>
-                                        <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                        <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                        <td class="col2">
-                                            <select  class="resizedTextbox">
-                                                    <option value="" disabled="disabled" selected="selected">Status</option>
-                                                    <option value="1">Paid</option>
-                                                    <option value="2">Not Paid</option>
-                                                    <option value="3">Discontinue</option>
-                                            </select>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                          <th scope="row">2</th>
-                                          <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                          <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                          <td class="col2">
-                                              <select  class="resizedTextbox">
-                                                      <option value="" disabled="disabled" selected="selected">Status</option>
-                                                      <option value="1">Paid</option>
-                                                      <option value="2">Not Paid</option>
-                                                      <option value="3">Discontinue</option>
-                                              </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td class="col2" scope="col"><input id="pdate" name="pdate" type="date" class="resizedTextbox"></td>
-                                            <td class="col2"><input type="text" name="fees" placeholder="Enter fees" class="resizedTextbox"></td>
-                                            <td class="col2">
-                                                <select  class="resizedTextbox">
-                                                        <option value="" disabled="disabled" selected="selected">Status</option>
-                                                        <option value="1">Paid</option>
-                                                        <option value="2">Not Paid</option>
-                                                        <option value="3">Discontinue</option>
-                                                </select>
-                                            </td>
-                                          </tr>
+                                    <th scope="row">1</th>
+                                    <td class="col3" scope="col">{{ form1.three_install_date1 }}</td>
+                                    <td class="col3">{{ form1.three_install_fees1 }}</td>
+                                    <td class="col3">{{ form1.status1 }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td class="col3" scope="col">{{ form1.three_install_date2 }}</td>
+                                    <td class="col3">{{ form1.three_install_fees2 }}</td>
+                                    <td class="col3">{{ form1.status2 }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td class="col3" scope="col">{{ form1.three_install_date3 }}</td>
+                                    <td class="col3">{{ form1.three_install_fees3 }}</td>
+                                    <td class="col3">{{ form1.status3 }}</td>
+                                </tr>
                                     </tbody>
                                   </table>
     
                               <div class="form-group">
-                                      <textarea class="form-control col-md-12" id="comments" name="comments" placeholder="Comments" rows="3"></textarea>
+                                   {{ form1.comments }}
                               </div>
   
                             <div class="form-group">
@@ -192,21 +167,32 @@
 {% endblock %}
 {% block js%}
 <script>
-        
-       function ShowHideDiv() {
-        var oneinstall = document.getElementById("one-install");
-        var twoinstall = document.getElementById("two-install");
-        var threeinstall = document.getElementById("three-install");
 
+        
+function ShowHideDiv() {
+        var select_fname = document.getElementById("id_select_0");
+        var select_lname = document.getElementById("id_select_1");
+        var select_alias = document.getElementById("id_select_2");
+        var oneinstall = document.getElementById("id_pay_fees_0");
+        var twoinstall = document.getElementById("id_pay_fees_1");
+        var threeinstall = document.getElementById("id_pay_fees_2");
+ 
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var alias = document.getElementById("alias");
         var showone = document.getElementById("one");
         var showtwo = document.getElementById("two");
         var showthree = document.getElementById("three");
-
+        
+        fname.style.display = select_fname.checked ? "block" : "none";
+        lname.style.display = select_lname.checked ? "block" : "none";
+        alias.style.display = select_alias.checked ? "block" : "none";
         showone.style.display = oneinstall.checked ? "block" : "none";
         showtwo.style.display = twoinstall.checked ? "block" : "none";
         showthree.style.display = threeinstall.checked ? "block" : "none";
     
     }
+       
  
 {% if thank %}
 alert('Thanks for Registration. We will get back to you soon!');

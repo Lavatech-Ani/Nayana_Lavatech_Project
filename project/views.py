@@ -473,10 +473,109 @@ def reportcontact(request):
     context = {'form':form}
     return render(request,'reportcontact.html',context)
 
+def feesnewserach(request):
+    if request.method == 'POST':
+        form1 = AddmissionForm() 
+        form = reportcontactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            b=cd['fname'].lower()
+            print(b)
+            ans = Addmission.objects.filter(fname=b)
+            print(ans)
+            for x in ans:
+                print(x.courses)
+                a=x.courses
+                b=x.add_alias
+                alias="E-"+b[2:]
+                punc = '''[]'"\< >'''
+                analyzed = ""
+                for char in a:
+                    if char not in punc:
+                        analyzed=analyzed+char
+                a1=analyzed.split(',')
+                form1 = AddmissionForm(initial={'E_id':alias,'add_date':x.add_date, 'add_alias':x.add_alias,'add_id':x.add_id,
+                'fname':x.fname,'lname':x.lname,'email':x.email,'phone':x.phone,'Address':x.Address,'courses':a1,'tot_fees':x.tot_fees,
+                'pay_fees':x.pay_fees,'one_install_date':x.one_install_date,'one_install_fees':x.one_install_fees,'status':x.status,
+                'two_install_date1':x.two_install_date1,'two_install_fees1':x.two_install_fees1,'two_install_date2':x.two_install_date2,
+                'two_install_fees2':x.two_install_fees2,'three_install_date1':x.three_install_date1,'three_install_fees1':x.three_install_fees1,
+                'three_install_date2':x.three_install_date2,'three_install_fees2':x.three_install_fees2,
+                'three_install_date3':x.three_install_date3,'three_install_fees3':x.three_install_fees3,'status1':x.status1,
+                'status2':x.status2,'status3':x.status3,'comments':x.comments})                    
+            b1=cd['lname'].lower()
+            print(b1)
+            ans = Addmission.objects.filter(lname=b1)
+            print(ans)
+            for x in ans:
+                print(x.courses)
+                a=x.courses
+                b=x.add_alias
+                alias="E-"+b[2:]
+                punc = '''[]'"\< >'''
+                analyzed = ""
+                for char in a:
+                    if char not in punc:
+                        analyzed=analyzed+char
+                a1=analyzed.split(',')
+                form1 = AddmissionForm(initial={'E_id':alias,'add_date':x.add_date, 'add_alias':x.add_alias,'add_id':x.add_id,
+                'fname':x.fname,'lname':x.lname,'email':x.email,'phone':x.phone,'Address':x.Address,'courses':a1,'tot_fees':x.tot_fees,
+                'pay_fees':x.pay_fees,'one_install_date':x.one_install_date,'one_install_fees':x.one_install_fees,'status':x.status,
+                'two_install_date1':x.two_install_date1,'two_install_fees1':x.two_install_fees1,'two_install_date2':x.two_install_date2,
+                'two_install_fees2':x.two_install_fees2,'three_install_date1':x.three_install_date1,'three_install_fees1':x.three_install_fees1,
+                'three_install_date2':x.three_install_date2,'three_install_fees2':x.three_install_fees2,
+                'three_install_date3':x.three_install_date3,'three_install_fees3':x.three_install_fees3,'status1':x.status1,
+                'status2':x.status2,'status3':x.status3,'comments':x.comments})                    
+            
+            b2=cd['alias']
+            print(b2)
+            ans = Addmission.objects.filter(add_alias=b2)
+            print(ans)
+            for x in ans:
+                print(x.courses)
+                a=x.courses
+                b=x.add_alias
+                alias="E-"+b[2:]
+                punc = '''[]'"\< >'''
+                analyzed = ""
+                for char in a:
+                    if char not in punc:
+                        analyzed=analyzed+char
+                a1=analyzed.split(',')
+                form1 = AddmissionForm(initial={'E_id':alias,'add_date':x.add_date, 'add_alias':x.add_alias,'add_id':x.add_id,
+                'fname':x.fname,'lname':x.lname,'email':x.email,'phone':x.phone,'Address':x.Address,'courses':a1,'tot_fees':x.tot_fees,
+                'pay_fees':x.pay_fees,'one_install_date':x.one_install_date,'one_install_fees':x.one_install_fees,'status':x.status,
+                'two_install_date1':x.two_install_date1,'two_install_fees1':x.two_install_fees1,'two_install_date2':x.two_install_date2,
+                'two_install_fees2':x.two_install_fees2,'three_install_date1':x.three_install_date1,'three_install_fees1':x.three_install_fees1,
+                'three_install_date2':x.three_install_date2,'three_install_fees2':x.three_install_fees2,
+                'three_install_date3':x.three_install_date3,'three_install_fees3':x.three_install_fees3,'status1':x.status1,
+                'status2':x.status2,'status3':x.status3,'comments':x.comments})                    
+        else:
+            print('#######____ERROR_____##########')
+            print(form.errors)
+    form = reportcontactForm()       
+    context = {'form':form,'form1':form1} 
+    return render(request,'feesnew.html',context)
 
 def feesnew(request):
-
-    return render(request,'feesnew.html')
+    if request.method == 'POST':
+        form1 = AddmissionForm(request.POST)
+        print("hiii")
+        if form1.is_valid():
+            print("Hiii")
+            cd = form1.cleaned_data
+            b=cd['fname'].lower()
+            print(b)
+            b1=cd['lname'].lower()
+            print(b1)
+            b2=cd['alias']
+            print(b2)
+        else:
+            print('#######____ERROR_____##########')
+            print(form1.errors)
+    form = reportcontactForm()  
+    form1 = AddmissionForm()      
+    context = {'form':form,'form1':form1}     
+    return render(request,'feesnew.html',context)
 
 
 def feesreport(request): 

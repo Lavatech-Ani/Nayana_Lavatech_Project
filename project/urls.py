@@ -21,6 +21,7 @@ urlpatterns = [
     path("reportenq/", views.reportenq, name='reportenq'),
     path("reportbatch/", views.reportbatch, name='reportbatch'),
     path("reportcontact/", views.reportcontact, name='reportcontact'),
+    path("feesnewserach/", views.feesnewserach, name='feesnewserach'),
     path("feesnew/", views.feesnew, name='feesnew'),
     path("feesreport/", views.feesreport, name='feesreport'),
     path("feessearch/", views.feessearch, name='feessearch'),
